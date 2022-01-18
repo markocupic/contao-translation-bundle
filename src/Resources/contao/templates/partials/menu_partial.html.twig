@@ -1,0 +1,14 @@
+<div class="trans-menu">
+    <div><strong>{{ 'CT_TRANS.projects'|trans({}, 'contao_default') }}</strong></div>
+    <div class="m-t-2">
+        {{ menu|raw }}
+    </div>
+    <div class="mt-5">
+        <ul class="trans-menu">
+            <li>
+                <a href="{{ href_create_new_project }}" class="btn btn-primary">+ {{ 'CT_TRANS.createNewProject'|trans({}, 'contao_default') }}</a>
+            </li>
+        </ul>
+    </div>
+
+</div>

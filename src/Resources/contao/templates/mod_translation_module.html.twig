@@ -1,0 +1,23 @@
+{% extends '@Contao/block_unsearchable' %}
+
+{% block content %}
+
+<script src="/bundles/markocupiccontaotranslation/js/default.js"></script>
+<link rel="stylesheet" href="/bundles/markocupiccontaotranslation/css/styles.css">
+
+<div class="trans-app">
+    <div class="row">
+        <left class="col-12 col-sm-4 col-lg-3">
+            {{ menu|raw }}
+        </left>
+        <main class="col-12 col-sm-8 col-lg-9">
+            <div class="inner">
+                {{ messages|raw }}
+                {{ content|raw }}
+            </div>
+        </main>
+    </div>
+</div>
+
+{{ parent() }}
+{% endblock %}

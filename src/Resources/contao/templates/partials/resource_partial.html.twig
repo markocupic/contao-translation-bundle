@@ -1,0 +1,32 @@
+
+<div class="trans-resource">
+
+    <h3 class="headline">{{ project.name }} - {{ 'CT_TRANS.languageResources'|trans({}, 'contao_default') }}</h3>
+
+    {{ upload|raw }}
+
+    <hr>
+
+    {% if import_resources_from_path_menu %}
+        {{ import_resources_from_path_menu|raw }}
+    {% endif %}
+
+    <div class="accordion mt-4" id="transResources">
+        {% for resource in resources %}
+        <div class="accordion-item">
+            <h3 class="accordion-header" id="transResource{{ resource.id }}">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseResource{{ resource.id }}" aria-expanded="true" aria-controls="collapseResource{{ resource.id }}">
+                    {{ resource.name }}
+                </button>
+            </h3>
+            <div id="collapseResource{{ resource.id }}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#transResources">
+                <div class="accordion-body">
+                    {{ resource.menu|raw }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>

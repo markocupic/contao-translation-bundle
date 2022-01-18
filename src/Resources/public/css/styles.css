@@ -1,0 +1,95 @@
+/** Still empty stylesheet **/
+[v-cloak] {
+  display: none;
+}
+ 
+.trans-app {
+  padding: 1rem;
+}
+.trans-app ul.trans-menu {
+  padding: 0;
+  list-style: none;
+}
+.trans-app ul.trans-menu li {
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+.trans-app ul.trans-menu ul {
+  list-style: none;
+}
+.trans-app left {
+  background-color: #e9e9e9;
+}
+.trans-app left ul.trans-menu ul.menu_level_1 {
+  padding-left: 1rem;
+}
+.trans-app left ul.trans-menu ul.menu_level_1 > li > * {
+  font-size: smaller;
+}
+.trans-app main .inner {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  position: relative;
+}
+.trans-app main .inner h3.headline {
+  margin-bottom: 1.5rem;
+}
+.trans-app main .inner .tl_message {
+  margin-bottom: 2rem;
+}
+.trans-app main .inner .tl_message > [class^=tl_] {
+  padding: 1rem;
+  margin: 0;
+  color: #fff;
+  margin: 0 0 1px 0;
+}
+.trans-app main .inner .tl_message .tl_confirm {
+  background-color: #00AAAA;
+}
+.trans-app main .inner .tl_message .tl_info {
+  background-color: #0a53be;
+}
+.trans-app main .inner .tl_message .tl_error {
+  background-color: red;
+}
+.trans-app main .inner .widget {
+  margin-bottom: 2rem;
+}
+.trans-app main .inner .widget input.text {
+  width: 700px;
+  max-width: 100%;
+}
+.trans-app main .inner .widget > * {
+  display: block;
+}
+.trans-app main .inner .widget button {
+  font-weight: 400;
+  line-height: 1.5;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background-color: #347aea;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s;
+}
+.trans-app main .inner .widget button:hover {
+  background-color: #114ba7;
+}
+.trans-app main .inner .translation-item {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eaeaea;
+}
+.trans-app main .inner .translation-item code {
+  color: #e90e7b;
+}
+
+/*# sourceMappingURL=styles.css.map */

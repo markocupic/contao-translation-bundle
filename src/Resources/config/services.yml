@@ -1,0 +1,21 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+        bind:
+            $projectDir: '%kernel.project_dir%'
+            $allowedLocales: '%markocupic_contao_translation.allowed_locales%'
+            $contaoCsrfTokenName: '%contao.csrf_token_name%'
+
+    Markocupic\ContaoTranslationBundle\:
+        resource: ../../
+        exclude: ../../{DependencyInjection,Resources,Model}
+
+    Markocupic\ContaoTranslationBundle\Export\XliffWriter:
+        autoconfigure: false
+        autowire: false
+
+    Markocupic\ContaoTranslationBundle\Import\ParseXml:
+        autoconfigure: false
+        autowire: false
