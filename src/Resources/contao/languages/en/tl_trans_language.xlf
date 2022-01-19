@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.1">
+  <file datatype="php" original="vendor/markocupic/contao-translation-bundle/src/Resources/contao/languages/en/tl_trans_language.php" source-language="en">
+    <body>
+      <trans-unit id="tl_trans_language.first_legend">
+        <source>Basis Einstellungen</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.second_legend">
+        <source>Erweiterte Einstellungen</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.edit.0">
+        <source>Datensatz mit ID: %s bearbeiten</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.edit.1">
+        <source>Datensatz mit ID: %s bearbeiten</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.copy.0">
+        <source>Datensatz mit ID: %s kopieren</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.copy.1">
+        <source>Datensatz mit ID: %s kopieren</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.delete.0">
+        <source>Datensatz mit ID: %s löschen</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.delete.1">
+        <source>Datensatz mit ID: %s löschen</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.show.0">
+        <source>Datensatz mit ID: %s ansehen</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.show.1">
+        <source>Datensatz mit ID: %s ansehen</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.title.0">
+        <source>Titel</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.title.1">
+        <source>Geben Sie den Titel ein</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.language.0">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.language.1">
+        <source>Please select a language which you want tr translate.</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.firstoption">
+        <source>Erste Option</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.secondoption">
+        <source>Zweite Option</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_language.customButton">
+        <source>Custom Routine starten</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

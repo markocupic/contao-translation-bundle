@@ -7,6 +7,7 @@ const TranslationTableApp = {
   data: function data() {
     return {
       app: null,
+      authToken: null,
       projectId: null,
       resourceId: null,
       language: null,
@@ -14,7 +15,8 @@ const TranslationTableApp = {
     }
   },
 
-  mounted: function mounted(){
+  mounted: function mounted() {
+    this.authToken = ContaoTranslator.authToken;
     this.app = this.$refs.app;
     this.projectId = this.app.dataset.project;
     this.resourceId = this.app.dataset.resource;
@@ -29,12 +31,17 @@ const TranslationTableApp = {
 
     loadTable: function loadTable() {
       let self = this;
+
+      var data = new FormData();
+      data.append('authToken', self.authToken);
+
       fetch('/trans_api/translation_table/get_rows/' + this.resourceId + '/' + this.language, {
 
-          method: 'GET',
+          method: 'POST',
           headers: {
             'x-requested-with': 'XMLHttpRequest'
           },
+          body: data,
         }
       ).then(function (response) {
         return response.json();
@@ -50,18 +57,27 @@ const TranslationTableApp = {
     edit: function edit(index) {
       let self = this;
 
+      // Autosave when user switches to another item
+      let open = document.querySelector('.translation-item.open');
+      if(open)
+      {
+        let index = open.dataset.index;
+        this.save(index);
+      }
+
       this.closeAll();
-      (function() {
+      (function () {
         self.rows[index].isOpen = true;
         return new Promise(resolve => setTimeout(resolve, 100));
-      })().then(function(){
+      })().then(function () {
         let input = self.app.querySelector('[data-index="' + index + '"] input');
         input.value = '';
         let sourceId = input.dataset.sourceId;
 
         var data = new FormData();
         data.append('sourceId', sourceId);
-        data.append( 'REQUEST_TOKEN', this.csrfToken );
+        data.append('REQUEST_TOKEN', this.csrfToken);
+        data.append('authToken', self.authToken);
 
         fetch('/trans_api/translation_table/get_target_source_value/' + self.resourceId + '/' + self.language, {
           method: 'POST',
@@ -72,7 +88,7 @@ const TranslationTableApp = {
         }).then(function (response) {
           return response.json();
         }).then(function (json) {
-          if(json.status === 'success'){
+          if (json.status === 'success') {
             input.value = json.value;
           }
         });
@@ -91,9 +107,10 @@ const TranslationTableApp = {
       let sourceId = input.dataset.sourceId;
 
       var data = new FormData();
-      data.append( 'value', value);
+      data.append('value', value);
       data.append('sourceId', sourceId);
-      data.append( 'REQUEST_TOKEN', this.csrfToken );
+      data.append('REQUEST_TOKEN', this.csrfToken);
+      data.append('authToken', self.authToken);
 
       fetch('/trans_api/translation_table/update_row/' + this.resourceId + '/' + this.language, {
         method: 'POST',
@@ -104,7 +121,7 @@ const TranslationTableApp = {
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
-        if(json.status === 'success'){
+        if (json.status === 'success') {
           self.closeAll();
           self.loadTable();
         }
@@ -122,7 +139,6 @@ const TranslationTableApp = {
   }
 }
 
-if(document.getElementById('translationTableApp'))
-{
+if (document.getElementById('translationTableApp')) {
   Vue.createApp(TranslationTableApp).mount('#translationTableApp');
 }

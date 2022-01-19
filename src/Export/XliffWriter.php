@@ -114,8 +114,8 @@ class XliffWriter
         $fileNode->appendChild(new \DOMAttr('datatype', self::FILE_DATATYPE));
         $fileNode->appendChild(new \DOMAttr('original', $this->originalFilePath));
         $fileNode->appendChild(new \DOMAttr('source-language', $this->sourceLanguage));
-        if($this->sourceLanguage !== $this->targetLanguage)
-        {
+
+        if ($this->sourceLanguage !== $this->targetLanguage) {
             $fileNode->appendChild(new \DOMAttr('target-language', $this->targetLanguage));
         }
 

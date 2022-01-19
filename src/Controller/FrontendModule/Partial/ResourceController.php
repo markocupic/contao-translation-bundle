@@ -24,6 +24,7 @@ use Knp\Menu\Matcher\Matcher;
 use Knp\Menu\MenuFactory;
 use Knp\Menu\Renderer\ListRenderer;
 use Markocupic\ContaoTranslationBundle\Model\TransProjectModel;
+use Markocupic\ContaoTranslationBundle\Session\SessionConfig;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -86,7 +87,10 @@ class ResourceController
                 $menu = $factory->createItem('importResourcesFromPathMenu');
                 $menu->setChildrenAttribute('class', 'trans-menu');
 
+                $sessionBag = $request->getSession()->getBag(SessionConfig::BAG_NAME);
                 $href = '/trans_api/resource/import_resources_from_path/'.$project->id;
+                $href = Url::addQueryString('authToken='.$sessionBag->get('authToken'),$href);
+
                 $menu
                     ->addChild($this->translator->trans('CT_TRANS.importResourcesFromPath', [$project->languageFilesFolder], 'contao_default'), ['uri' => $href])
                     ->setAttribute('data-ajax-href', $href)

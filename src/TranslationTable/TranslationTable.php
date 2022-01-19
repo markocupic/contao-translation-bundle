@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Markocupic\ContaoTranslationBundle\TranslationTable;
 
-use Contao\StringUtil;
 use Markocupic\ContaoTranslationBundle\Model\TransProjectModel;
 use Markocupic\ContaoTranslationBundle\Model\TransResourceModel;
 use Markocupic\ContaoTranslationBundle\Model\TransTranslationModel;
@@ -28,6 +27,7 @@ class TranslationTable
     {
         $this->xmlSanitizer = $xmlSanitizer;
     }
+
     public function getRows(TransProjectModel $project, TransResourceModel $resource, string $language): array
     {
         $arrSources = [];
@@ -133,6 +133,4 @@ class TranslationTable
 
         return true;
     }
-
-
 }

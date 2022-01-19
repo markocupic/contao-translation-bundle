@@ -7,11 +7,16 @@ document.addEventListener("DOMContentLoaded", function () {
     buttons.forEach((button) => {
       button.addEventListener('click', (e) => {
         e.preventDefault();
+
+        var data = new FormData();
+        data.append('authToken', ContaoTranslator);
+
         fetch(button.dataset.ajaxHref, {
-          method: 'GET',
+          method: 'POST',
           headers: {
             'x-requested-with': 'XMLHttpRequest'
           },
+          body: data
         }).then(function (response) {
           return response.json();
         }).then(function (json) {

@@ -2,8 +2,8 @@
 <div id="translationTableApp" class="trans-translate">
     <div v-cloak ref="app" data-project="{{ project.id }}" data-resource="{{ resource.id }}" data-language="{{ language }}" data-csrf-token="{{ csrf_token }}">
         <h3>{{ project.name }} - {{ language }} - {{ resource.name }}</h3>
-        <div v-if="rows" v-for="(row, index) in rows" v-bind:data-index="index" v-bind:data-translation-id="row.target.translation_id" class="translation-item row">
-            <div class="translation-source col-12">
+        <div v-if="rows" v-for="(row, index) in rows" v-bind:class="row.isOpen == true ? 'open' : ''" v-bind:data-index="index" v-bind:data-translation-id="row.target.translation_id" class="translation-item row">
+            <div class="translation-source col-12 mb-3">
                 <div>
                     <code class="small" v-html="row.source.translation_id"></code>
                 </div>
@@ -14,7 +14,7 @@
             <div class="translation-target col-12">
                 <div  v-if="!row.isOpen" class="d-flex">
                     <div><button @click="edit(index)" class="btn btn-sm btn-primary">{{ 'CT_TRANS.edit'|trans({}, 'contao_default') }}</button></div>
-                    <div class="ps-3 pe-3"><span>${ row.target.translation }</span></div>
+                    <div class="ms-3 ps-2 pe-2 flex-grow-1" v-bind:class="row.target.translation == '' ? 'trans-translation-missing' : 'trans-translation-ok'"><span class="small">${ row.target.translation }</span></div>
                 </div>
                 <div v-if="row.isOpen" class="d-flex">
                     <div class="input-group input-group-sm">

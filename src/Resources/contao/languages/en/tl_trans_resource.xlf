@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.1">
+  <file datatype="php" original="vendor/markocupic/contao-translation-bundle/src/Resources/contao/languages/en/tl_trans_resource.php" source-language="en">
+    <body>
+      <trans-unit id="tl_trans_resource.first_legend">
+        <source>Basis Einstellungen</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.second_legend">
+        <source>Erweiterte Einstellungen</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.name.0">
+        <source>File name</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.name.1">
+        <source>Add the file name.</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.dataType.0">
+        <source>Data type</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.dataType.1">
+        <source>Add a data type.</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.original.0">
+        <source>Original path</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.original.1">
+        <source>Add the original path.</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.sourceLanguage.0">
+        <source>Source language</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.sourceLanguage.1">
+        <source>Add the source language.</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.targetLanguage.0">
+        <source>Target language</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.targetLanguage.1">
+        <source>Add the target language. Leave empty, if it is the source language.</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

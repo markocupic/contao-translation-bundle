@@ -109,6 +109,14 @@
         padding-bottom: 1rem;
         border-bottom: 1px solid #eaeaea;
 
+        .trans-translation-missing{
+          background-color: rgba(255, 0, 0, 0.38);
+        }
+
+        .trans-translation-ok{
+          background-color: rgba(5, 211, 5, 0.38);
+        }
+
         code {
           color: #e90e7b;
         }

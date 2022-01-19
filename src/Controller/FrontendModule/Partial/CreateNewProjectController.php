@@ -71,7 +71,7 @@ class CreateNewProjectController
             }
 
             $this->message->addConfirmation(
-                $this->translator->trans('CT_TRANS.confirmCreateProject',[$name], 'contao_default')
+                $this->translator->trans('CT_TRANS.confirmCreateProject', [$name], 'contao_default')
             );
 
             $url = Url::removeQueryString(array_keys($_GET));

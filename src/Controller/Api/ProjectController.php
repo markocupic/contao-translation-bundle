@@ -20,20 +20,25 @@ use Markocupic\ContaoTranslationBundle\Export\ExportFromDb;
 use Markocupic\ContaoTranslationBundle\Message\Message;
 use Markocupic\ContaoTranslationBundle\Model\TransProjectModel;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProjectController
 {
+    use AuthorizationTrait;
+
     private ContaoFramework $contaoFramework;
+    private RequestStack $requestStack;
     private Connection $connection;
     private ExportFromDb $exportFromDb;
     private Message $message;
     private TranslatorInterface $translator;
 
-    public function __construct(ContaoFramework $contaoFramework, Connection $connection, ExportFromDb $exportFromDb, Message $message, TranslatorInterface $translator)
+    public function __construct(ContaoFramework $contaoFramework, RequestStack $requestStack, Connection $connection, ExportFromDb $exportFromDb, Message $message, TranslatorInterface $translator)
     {
         $this->contaoFramework = $contaoFramework;
+        $this->requestStack = $requestStack;
         $this->connection = $connection;
         $this->exportFromDb = $exportFromDb;
         $this->message = $message;
@@ -53,6 +58,9 @@ class ProjectController
      */
     public function delete(int $projectId): JsonResponse
     {
+        // Throws an exception if client is not authorized
+        $this->isAuthorized($this->requestStack);
+
         $this->contaoFramework->initialize(true);
 
         if (null === ($project = TransProjectModel::findByPk($projectId))) {
@@ -81,10 +89,8 @@ class ProjectController
         ];
 
         $this->message->addConfirmation(
-            $this->translator->trans('CT_TRANS.confirmDeleteProject',[$project->name], 'contao_default')
+            $this->translator->trans('CT_TRANS.confirmDeleteProject', [$project->name], 'contao_default')
         );
-
-
 
         return new JsonResponse($json);
     }

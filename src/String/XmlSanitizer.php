@@ -19,14 +19,13 @@ class XmlSanitizer
     /**
      * Trim, replace &quot; with "
      * Encode not allowed & and <.
-     *
      */
     public function sanitize(string $strString): string
     {
         $strString = trim($strString);
         $strString = html_entity_decode($strString, ENT_QUOTES);
         $strString = preg_replace('/&(amp;)?/i', '&amp;', $strString);
-
-        return str_replace('<', '&lt;', $strString);
+        //$strString = str_replace('<', '&lt;', $strString);
+        return $strString;
     }
 }

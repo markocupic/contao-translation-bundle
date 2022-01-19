@@ -22,21 +22,26 @@ use Markocupic\ContaoTranslationBundle\Model\TransProjectModel;
 use Markocupic\ContaoTranslationBundle\Model\TransResourceModel;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ResourceController
 {
+    use AuthorizationTrait;
+
     private ContaoFramework $contaoFramework;
+    private RequestStack $requestStack;
     private Connection $connection;
     private DbImport $dbImport;
     private TranslatorInterface $translator;
     private Message $message;
     private string $projectDir;
 
-    public function __construct(ContaoFramework $contaoFramework, Connection $connection, DbImport $dbImport, TranslatorInterface $translator, Message $message, string $projectDir)
+    public function __construct(ContaoFramework $contaoFramework, RequestStack $requestStack, Connection $connection, DbImport $dbImport, TranslatorInterface $translator, Message $message, string $projectDir)
     {
         $this->contaoFramework = $contaoFramework;
+        $this->requestStack = $requestStack;
         $this->connection = $connection;
         $this->dbImport = $dbImport;
         $this->translator = $translator;
@@ -57,6 +62,9 @@ class ResourceController
      */
     public function delete(int $resourceId): JsonResponse
     {
+        // Throws an exception if client is not authorized
+        $this->isAuthorized($this->requestStack);
+
         $this->contaoFramework->initialize(true);
 
         if (null === ($project = TransResourceModel::findByPk($resourceId))) {
@@ -95,6 +103,9 @@ class ResourceController
      */
     public function importResourcesFromPath(int $projectId): JsonResponse
     {
+        // Throws an exception if client is not authorized
+        $this->isAuthorized($this->requestStack);
+
         $this->contaoFramework->initialize(true);
 
         if (null === ($project = TransProjectModel::findByPk($projectId))) {

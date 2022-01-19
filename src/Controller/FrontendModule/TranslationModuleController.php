@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Markocupic\ContaoTranslationBundle\Controller\FrontendModule;
 
 use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController;
+use Contao\CoreBundle\Routing\ScopeMatcher;
 use Contao\CoreBundle\ServiceAnnotation\FrontendModule;
 use Contao\ModuleModel;
 use Contao\PageModel;
@@ -27,8 +28,12 @@ use Markocupic\ContaoTranslationBundle\Controller\FrontendModule\Partial\Resourc
 use Markocupic\ContaoTranslationBundle\Controller\FrontendModule\Partial\TranslateController;
 use Markocupic\ContaoTranslationBundle\Controller\FrontendModule\Partial\UploadController;
 use Markocupic\ContaoTranslationBundle\Message\Message;
+use Markocupic\ContaoTranslationBundle\Session\SessionConfig;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 
 /**
  * Class TranslationModuleController.
@@ -38,6 +43,7 @@ use Symfony\Component\HttpFoundation\Response;
 class TranslationModuleController extends AbstractFrontendModuleController
 {
     public const TYPE = 'translation_module';
+    private ScopeMatcher $scopeMatcher;
     private Message $message;
     private MenuController $menuController;
     private ResourceController $resourceController;
@@ -47,9 +53,11 @@ class TranslationModuleController extends AbstractFrontendModuleController
     private CreateNewProjectController $createNewProjectController;
     private ProjectController $projectController;
     protected ?PageModel $page = null;
+    private ?string $authToken = null;
 
-    public function __construct(Message $message, MenuController $menuController, ResourceController $resourceController, UploadController $uploadController, LanguageController $languageController, TranslateController $translateController, CreateNewProjectController $createNewProjectController, ProjectController $projectController)
+    public function __construct(ScopeMatcher $scopeMatcher, Message $message, MenuController $menuController, ResourceController $resourceController, UploadController $uploadController, LanguageController $languageController, TranslateController $translateController, CreateNewProjectController $createNewProjectController, ProjectController $projectController)
     {
+        $this->scopeMatcher = $scopeMatcher;
         $this->message = $message;
         $this->menuController = $menuController;
         $this->resourceController = $resourceController;
@@ -69,10 +77,20 @@ class TranslationModuleController extends AbstractFrontendModuleController
         // Get the page model
         $this->page = $page;
 
-        if ($this->page instanceof PageModel && $this->get('contao.routing.scope_matcher')->isFrontendRequest($request)) {
-            // If TL_MODE === 'FE'
+        // If TL_MODE === 'FE'
+        if ($this->page instanceof PageModel && $this->scopeMatcher->isFrontendRequest($request)) {
             $this->page->loadDetails();
+
+            /** @var AttributeBagInterface $sessionBag */
+            $sessionBag = $request->getSession()->getBag(SessionConfig::BAG_NAME);
+            if ($sessionBag->has('authToken')) {
+                $this->authToken = $sessionBag->get('authToken');
+            } else {
+                $this->authToken = bin2hex(openssl_random_pseudo_bytes(256));
+                $sessionBag->set('authToken', $this->authToken);
+            }
         }
+
 
         return parent::__invoke($request, $model, $section, $classes);
     }
@@ -82,6 +100,7 @@ class TranslationModuleController extends AbstractFrontendModuleController
      */
     protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
     {
+        $template->auth_token = $this->authToken;
         $template->content = '';
 
         $template->menu = $this->menuController->generate($template, $model, $request);

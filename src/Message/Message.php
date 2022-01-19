@@ -27,7 +27,7 @@ class Message
 
     public function addInfo(string $strMsg): void
     {
-        ContaoMessage::addInfo($strMsg,self::SCOPE);
+        ContaoMessage::addInfo($strMsg, self::SCOPE);
     }
 
     public function hasError(): bool
@@ -37,7 +37,7 @@ class Message
 
     public function addError(string $strMsg): void
     {
-        ContaoMessage::addError($strMsg,self::SCOPE);
+        ContaoMessage::addError($strMsg, self::SCOPE);
     }
 
     public function hasConfirmation(): bool
@@ -47,13 +47,11 @@ class Message
 
     public function addConfirmation(string $strMsg): void
     {
-        ContaoMessage::addConfirmation($strMsg,self::SCOPE);
+        ContaoMessage::addConfirmation($strMsg, self::SCOPE);
     }
 
     public function generate(): string
     {
         return ContaoMessage::generate(self::SCOPE);
     }
-
-
 }

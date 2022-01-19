@@ -2,7 +2,7 @@
 [v-cloak] {
   display: none;
 }
- 
+
 .trans-app {
   padding: 1rem;
 }
@@ -87,6 +87,12 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #eaeaea;
+}
+.trans-app main .inner .translation-item .trans-translation-missing {
+  background-color: rgba(255, 0, 0, 0.38);
+}
+.trans-app main .inner .translation-item .trans-translation-ok {
+  background-color: rgba(5, 211, 5, 0.38);
 }
 .trans-app main .inner .translation-item code {
   color: #e90e7b;

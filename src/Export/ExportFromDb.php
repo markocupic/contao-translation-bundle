@@ -119,13 +119,13 @@ class ExportFromDb
                     ++$error;
 
                     $this->message->addError(
-                        $this->translator->trans('CT_TRANS.errorRepositoryExport', [$language,$resource->name], 'contao_default')
+                        $this->translator->trans('CT_TRANS.errorRepositoryExport', [$language, $resource->name], 'contao_default')
                     );
                 } else {
                     ++$countFilesCreated;
 
                     $this->message->addConfirmation(
-                        $this->translator->trans('CT_TRANS.confirmRepositoryExport', [$language,$resource->name], 'contao_default')
+                        $this->translator->trans('CT_TRANS.confirmRepositoryExport', [$language, $resource->name], 'contao_default')
                     );
                 }
             }

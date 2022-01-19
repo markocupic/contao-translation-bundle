@@ -24,15 +24,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TranslationTableController
 {
+    use AuthorizationTrait;
+
     private ContaoFramework $contaoFramework;
-    private TranslationTable $translationTable;
     private RequestStack $requestStack;
+    private TranslationTable $translationTable;
 
     public function __construct(ContaoFramework $contaoFramework, RequestStack $requestStack, TranslationTable $translationTable)
     {
         $this->contaoFramework = $contaoFramework;
-        $this->translationTable = $translationTable;
         $this->requestStack = $requestStack;
+        $this->translationTable = $translationTable;
     }
 
     /**
@@ -48,6 +50,9 @@ class TranslationTableController
      */
     public function getRows(int $resourceId, string $language): JsonResponse
     {
+        // Throws an exception if client is not authorized
+        $this->isAuthorized($this->requestStack);
+
         $this->contaoFramework->initialize(true);
 
         if (null === ($resource = TransResourceModel::findByPk($resourceId))) {
@@ -91,6 +96,9 @@ class TranslationTableController
      */
     public function getTargetSourceValue(int $resourceId, string $language): JsonResponse
     {
+        // Throws an exception if client is not authorized
+        $this->isAuthorized($this->requestStack);
+
         $this->contaoFramework->initialize(true);
 
         $request = $this->requestStack->getCurrentRequest();
@@ -136,6 +144,9 @@ class TranslationTableController
      */
     public function updateRow(int $resourceId, string $language): JsonResponse
     {
+        // Throws an exception if client is not authorized
+        $this->isAuthorized($this->requestStack);
+
         $this->contaoFramework->initialize(true);
 
         $request = $this->requestStack->getCurrentRequest();
