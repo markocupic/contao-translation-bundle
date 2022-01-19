@@ -25,12 +25,15 @@ const TranslationTableApp = {
     this.csrfToken = this.app.dataset.csrfToken;
 
     // Load items
-    this.loadTable();
+    this.reloadData();
   },
 
   methods: {
-
-    loadTable: async function loadTable() {
+    /**
+     * Load rows from server
+     * @returns {Promise<any>}
+     */
+    reloadData: async function reloadData() {
       let self = this;
 
       var data = new FormData();
@@ -38,64 +41,77 @@ const TranslationTableApp = {
 
       return await fetch('/trans_api/translation_table/get_rows/' + this.resourceId + '/' + this.language, {
 
-          method: 'POST',
-          headers: {
-            'x-requested-with': 'XMLHttpRequest'
-          },
-          body: data,
-        }
-      ).then(function (response) {
+        method: 'POST',
+        headers: {
+          'x-requested-with': 'XMLHttpRequest'
+        },
+        body: data,
+      }).then(function (response) {
         return response.json();
       }).then(function (json) {
         self.rows = json.data.rows;
       });
     },
 
+    /**
+     * User has pressed the edit button
+     * @param index
+     * @returns {Promise<any>}
+     */
     edit: async function edit(index) {
       let self = this;
 
-      // Autosave when user switches to another item
+      // Autosave previous input,
+      // if user switches directly to another item
       let open = document.querySelector('.translation-item.open');
       if (open) {
-        let ind = open.dataset['index'];
-        this.save(ind, false);
-        setTimeout(() => this.edit(index), 50);
+        let i = open.dataset['index'];
+        await this.save(i);
+        this.edit(index);
         return;
       }
 
-      (function () {
-        return self.open(index);
-      })().then(async function () {
-        let input = self.app.querySelector('[data-index="' + index + '"] input');
-        input.value = '';
-        let sourceId = input.dataset.sourceId;
+      // Get the source id
+      let row = self.app.querySelector('[data-index="' + index + '"]');
+      let sourceId = row.dataset.sourceId;
 
-        var data = new FormData();
-        data.append('sourceId', sourceId);
-        data.append('REQUEST_TOKEN', this.csrfToken);
-        data.append('authToken', self.authToken);
+      var data = new FormData();
+      data.append('sourceId', sourceId);
+      data.append('REQUEST_TOKEN', this.csrfToken);
+      data.append('authToken', self.authToken);
 
-        return await fetch('/trans_api/translation_table/get_target_source_value/' + self.resourceId + '/' + self.language, {
-          method: 'POST',
-          headers: {
-            'x-requested-with': 'XMLHttpRequest'
-          },
-          body: data
-        }).then(function (response) {
-          return response.json();
-        }).then(function (json) {
-          if (json.status === 'success') {
-            input.value = json.value;
-          }
-        });
+      return await fetch('/trans_api/translation_table/get_target_source_value/' + self.resourceId + '/' + self.language, {
+        method: 'POST',
+        headers: {
+          'x-requested-with': 'XMLHttpRequest'
+        },
+        body: data
+      }).then(function (response) {
+        return response.json();
+      }).then(async function (json) {
+        if (json.status === 'success') {
+          await self.open(index);
+          let input = row.querySelector('input');
+          input.value = json.value;
+        }
       });
     },
 
+    /**
+     * Open the input field of the selected row
+     * @param index
+     * @returns {Promise<unknown>}
+     */
     open: function open(index) {
       this.itemsOpened[index] = true;
       return new Promise(resolve => setTimeout(resolve, 20));
     },
 
+    /**
+     * Close the input field of the selected row
+     * @param index
+     * @returns {Promise<unknown>}
+     */
     close: function close(index) {
       this.itemsOpened[index] = false;
       return new Promise(resolve => setTimeout(resolve, 20));
@@ -109,12 +125,13 @@ const TranslationTableApp = {
       let self = this;
       this.close(index);
 
-      let input = self.app.querySelector('[data-index="' + index + '"] input');
-      let value = input.value;
-      let sourceId = input.dataset.sourceId;
+      let row = self.app.querySelector('[data-index="' + index + '"]');
+      let sourceId = row.dataset.sourceId;
+
+      let input = row.querySelector('input');
 
       var data = new FormData();
-      data.append('value', value);
+      data.append('value', input.value);
       data.append('sourceId', sourceId);
       data.append('REQUEST_TOKEN', this.csrfToken);
       data.append('authToken', self.authToken);
@@ -129,7 +146,7 @@ const TranslationTableApp = {
         return response.json();
       }).then(function (json) {
         if (json.status === 'success') {
-          self.loadTable();
+          self.reloadData();
         }
       });
     },
