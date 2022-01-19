@@ -30,13 +30,13 @@ const TranslationTableApp = {
 
   methods: {
 
-    loadTable: function loadTable() {
+    loadTable: async function loadTable() {
       let self = this;
 
       var data = new FormData();
       data.append('authToken', self.authToken);
 
-      fetch('/trans_api/translation_table/get_rows/' + this.resourceId + '/' + this.language, {
+      return await fetch('/trans_api/translation_table/get_rows/' + this.resourceId + '/' + this.language, {
 
           method: 'POST',
           headers: {
@@ -51,7 +51,7 @@ const TranslationTableApp = {
       });
     },
 
-    edit: function edit(index) {
+    edit: async function edit(index) {
       let self = this;
 
       // Autosave when user switches to another item
@@ -65,7 +65,7 @@ const TranslationTableApp = {
 
       (function () {
         return self.open(index);
-      })().then(function () {
+      })().then(async function () {
         let input = self.app.querySelector('[data-index="' + index + '"] input');
         input.value = '';
         let sourceId = input.dataset.sourceId;
@@ -75,7 +75,7 @@ const TranslationTableApp = {
         data.append('REQUEST_TOKEN', this.csrfToken);
         data.append('authToken', self.authToken);
 
-        fetch('/trans_api/translation_table/get_target_source_value/' + self.resourceId + '/' + self.language, {
+        return await fetch('/trans_api/translation_table/get_target_source_value/' + self.resourceId + '/' + self.language, {
           method: 'POST',
           headers: {
             'x-requested-with': 'XMLHttpRequest'
