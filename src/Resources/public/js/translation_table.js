@@ -11,7 +11,8 @@ const TranslationTableApp = {
       projectId: null,
       resourceId: null,
       language: null,
-      rows: null,
+      rows: {},
+      itemsOpened: {},
     }
   },
 
@@ -50,25 +51,20 @@ const TranslationTableApp = {
       });
     },
 
-    /**
-     * Open form
-     * @param row
-     */
     edit: function edit(index) {
       let self = this;
 
       // Autosave when user switches to another item
       let open = document.querySelector('.translation-item.open');
-      if(open)
-      {
-        let index = open.dataset.index;
-        this.save(index);
+      if (open) {
+        let ind = open.dataset['index'];
+        this.save(ind, false);
+        setTimeout(() => this.edit(index), 50);
+        return;
       }
 
-      this.closeAll();
       (function () {
-        self.rows[index].isOpen = true;
-        return new Promise(resolve => setTimeout(resolve, 100));
+        return self.open(index);
       })().then(function () {
         let input = self.app.querySelector('[data-index="' + index + '"] input');
         input.value = '';
@@ -95,12 +91,23 @@ const TranslationTableApp = {
       });
     },
 
+    open: function open(index) {
+      this.itemsOpened[index] = true;
+      return new Promise(resolve => setTimeout(resolve, 20));
+    },
+
+    close: function close(index) {
+      this.itemsOpened[index] = false;
+      return new Promise(resolve => setTimeout(resolve, 20));
+    },
+
     /**
      * Save input
      * @param event
      */
-    save: function save(index) {
+    save: async function save(index) {
       let self = this;
+      this.close(index);
 
       let input = self.app.querySelector('[data-index="' + index + '"] input');
       let value = input.value;
@@ -112,7 +119,7 @@ const TranslationTableApp = {
       data.append('REQUEST_TOKEN', this.csrfToken);
       data.append('authToken', self.authToken);
 
-      fetch('/trans_api/translation_table/update_row/' + this.resourceId + '/' + this.language, {
+      return await fetch('/trans_api/translation_table/update_row/' + this.resourceId + '/' + this.language, {
         method: 'POST',
         headers: {
           'x-requested-with': 'XMLHttpRequest'
@@ -122,19 +129,9 @@ const TranslationTableApp = {
         return response.json();
       }).then(function (json) {
         if (json.status === 'success') {
-          self.closeAll();
           self.loadTable();
         }
       });
-    },
-
-    /**
-     * close all
-     */
-    closeAll: function closeAll() {
-      for (let i = 0; i < this.rows.length; i++) {
-        this.rows[i].isOpen = false;
-      }
     },
   }
 }

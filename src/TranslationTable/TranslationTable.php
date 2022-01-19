@@ -57,7 +57,7 @@ class TranslationTable
                 $strTranslation = $arrTranslations[$source['translationId']]['translation'];
             }
 
-            $rows[] = [
+            $rows[(int)$source['id']] = [
                 'source' => [
                     'id' => $source['id'],
                     'resource' => $resource->id,
