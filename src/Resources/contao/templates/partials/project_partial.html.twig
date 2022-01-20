@@ -1,6 +1,8 @@
 <div class="project">
     <h3 class="headline">{{ project.name }}</h3>
 
+    <div class="go-back-btn"><a href="javascript: history.back()">{{ 'MSC.backBT'|trans({}, 'contao_default') }}</a></div>
+
     {{ form|raw }}
 
     {{ menu|raw }}

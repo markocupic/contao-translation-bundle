@@ -62,12 +62,16 @@
         <source>Import resources from vendor directory</source>
         <target>Sprachdateien von Pfad importieren (vendor/vendorname/projectname/...)</target>
       </trans-unit>
+      <trans-unit id="CT_TRANS.translated">
+        <source>translated</source>
+        <target>übersetzt</target>
+      </trans-unit>
       <trans-unit id="CT_TRANS.confirmDeleteProject">
-        <source>Successfully deleted project %s.</source>
+        <source>Successfully deleted project "%s".</source>
         <target>Projekt %s erfolgreich gelöscht.</target>
       </trans-unit>
       <trans-unit id="CT_TRANS.confirmCreateProject">
-        <source>Successfully created project %s.</source>
+        <source>Successfully created project "%s".</source>
         <target>Projekt "%s" erfolgreich erstellt.</target>
       </trans-unit>
       <trans-unit id="CT_TRANS.deleteOrphaned">
@@ -88,11 +92,15 @@
       </trans-unit>
       <trans-unit id="CT_TRANS.confirmRepositoryExport">
         <source>Successfully exported "%s/%s".</source>
-        <target>Sprchdatei "%s/%s" erfolgreich exportiert.</target>
+        <target>Sprachdatei "%s/%s" erfolgreich exportiert.</target>
       </trans-unit>
       <trans-unit id="CT_TRANS.errorRepositoryExport">
         <source>Error while trying to export resource "%s/%s".</source>
         <target>Beim Versuch "%s/%s" zu exportieren ist es zu einem Fehler gekommen.</target>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.errorRepositoryExportDueToEmptyFile">
+        <source>Skipped resource "%s/%s" due to empty file.</source>
+        <target>Die Sprachdatei "%s/%s" wurde nicht hochgeladen, weil Sie keine Übersetzungen enthält.</target>
       </trans-unit>
     </body>
   </file>

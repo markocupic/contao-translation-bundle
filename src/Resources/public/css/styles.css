@@ -1,68 +1,77 @@
 /** Still empty stylesheet **/
-[v-cloak] {
+.mod_translation_module [v-cloak] {
   display: none;
 }
-
-.trans-app {
+.mod_translation_module .trans-app-header {
+  background-color: #9c27b0;
+}
+.mod_translation_module .trans-app-header .inner {
+  padding: 2rem 1rem;
+  color: #fff;
+}
+.mod_translation_module .trans-app {
   padding: 1rem;
 }
-.trans-app ul.trans-menu {
+.mod_translation_module .trans-app .go-back-btn {
+  text-align: right;
+}
+.mod_translation_module .trans-app ul.trans-menu {
   padding: 0;
   list-style: none;
 }
-.trans-app ul.trans-menu li {
+.mod_translation_module .trans-app ul.trans-menu li {
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
 }
-.trans-app ul.trans-menu ul {
+.mod_translation_module .trans-app ul.trans-menu ul {
   list-style: none;
 }
-.trans-app left {
+.mod_translation_module .trans-app left {
   background-color: #e9e9e9;
 }
-.trans-app left ul.trans-menu ul.menu_level_1 {
+.mod_translation_module .trans-app left ul.trans-menu ul.menu_level_1 {
   padding-left: 1rem;
 }
-.trans-app left ul.trans-menu ul.menu_level_1 > li > * {
+.mod_translation_module .trans-app left ul.trans-menu ul.menu_level_1 > li > * {
   font-size: smaller;
 }
-.trans-app main .inner {
+.mod_translation_module .trans-app main .inner {
   margin-left: 2rem;
   margin-right: 2rem;
   position: relative;
 }
-.trans-app main .inner h3.headline {
+.mod_translation_module .trans-app main .inner h3.headline {
   margin-bottom: 1.5rem;
 }
-.trans-app main .inner .tl_message {
+.mod_translation_module .trans-app main .inner .tl_message {
   margin-bottom: 2rem;
 }
-.trans-app main .inner .tl_message > [class^=tl_] {
+.mod_translation_module .trans-app main .inner .tl_message > [class^=tl_] {
   padding: 1rem;
   margin: 0;
   color: #fff;
   margin: 0 0 1px 0;
 }
-.trans-app main .inner .tl_message .tl_confirm {
+.mod_translation_module .trans-app main .inner .tl_message .tl_confirm {
   background-color: #00AAAA;
 }
-.trans-app main .inner .tl_message .tl_info {
+.mod_translation_module .trans-app main .inner .tl_message .tl_info {
   background-color: #0a53be;
 }
-.trans-app main .inner .tl_message .tl_error {
+.mod_translation_module .trans-app main .inner .tl_message .tl_error {
   background-color: red;
 }
-.trans-app main .inner .widget {
+.mod_translation_module .trans-app main .inner .widget {
   margin-bottom: 2rem;
 }
-.trans-app main .inner .widget input.text {
+.mod_translation_module .trans-app main .inner .widget input.text {
   width: 700px;
   max-width: 100%;
 }
-.trans-app main .inner .widget > * {
+.mod_translation_module .trans-app main .inner .widget > * {
   display: block;
 }
-.trans-app main .inner .widget button {
+.mod_translation_module .trans-app main .inner .widget button {
   font-weight: 400;
   line-height: 1.5;
   color: #fff;
@@ -80,21 +89,21 @@
   border-radius: 0.25rem;
   transition: color 0.15s;
 }
-.trans-app main .inner .widget button:hover {
+.mod_translation_module .trans-app main .inner .widget button:hover {
   background-color: #114ba7;
 }
-.trans-app main .inner .translation-item {
+.mod_translation_module .trans-app main .inner .translation-item {
   padding-top: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #eaeaea;
 }
-.trans-app main .inner .translation-item .trans-translation-missing {
+.mod_translation_module .trans-app main .inner .translation-item .trans-translation-missing {
   background-color: rgba(255, 0, 0, 0.38);
 }
-.trans-app main .inner .translation-item .trans-translation-ok {
+.mod_translation_module .trans-app main .inner .translation-item .trans-translation-ok {
   background-color: rgba(5, 211, 5, 0.38);
 }
-.trans-app main .inner .translation-item code {
+.mod_translation_module .trans-app main .inner .translation-item code {
   color: #e90e7b;
 }
 

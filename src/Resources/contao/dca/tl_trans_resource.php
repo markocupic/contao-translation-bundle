@@ -13,39 +13,39 @@ declare(strict_types=1);
  */
 
 $GLOBALS['TL_DCA']['tl_trans_resource'] = [
-    'config' => [
-        'dataContainer' => 'Table',
+    'config'   => [
+        'dataContainer'    => 'Table',
         'enableVersioning' => true,
-        'ptable' => 'tl_trans_project',
-        'ctable' => ['tl_trans_translation'],
-        'sql' => [
+        'ptable'           => 'tl_trans_project',
+        'ctable'           => ['tl_trans_translation'],
+        'sql'              => [
             'keys' => [
-                'id' => 'primary',
+                'id'  => 'primary',
                 'pid' => 'index',
             ],
         ],
     ],
-    'list' => [
-        'sorting' => [
-            'mode' => 2,
-            'fields' => ['name'],
-            'flag' => 1,
+    'list'     => [
+        'sorting'           => [
+            'mode'        => 2,
+            'fields'      => ['name'],
+            'flag'        => 1,
             'panelLayout' => 'filter;sort,search,limit',
         ],
-        'label' => [
+        'label'             => [
             'fields' => ['name'],
             'format' => '%s',
         ],
         'global_operations' => [
             'all' => [
-                'label' => &$GLOBALS['TL_LANG']['MSC']['all'],
-                'href' => 'act=select',
-                'class' => 'header_edit_all',
+                'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
+                'href'       => 'act=select',
+                'class'      => 'header_edit_all',
                 'attributes' => 'onclick="Backend.getScrollOffset()" accesskey="e"',
             ],
         ],
-        'operations' => [
-            'edit' => [
+        'operations'        => [
+            'edit'       => [
                 'href' => 'table=tl_trans_translation',
                 'icon' => 'edit.svg',
             ],
@@ -53,88 +53,82 @@ $GLOBALS['TL_DCA']['tl_trans_resource'] = [
                 'href' => 'act=edit',
                 'icon' => 'header.svg',
             ],
-            'copy' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_trans_resource']['copy'],
+            'copy'       => [
                 'href' => 'act=copy',
                 'icon' => 'copy.svg',
             ],
-            'delete' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_trans_resource']['delete'],
-                'href' => 'act=delete',
-                'icon' => 'delete.svg',
+            'delete'     => [
+                'href'       => 'act=delete',
+                'icon'       => 'delete.svg',
                 'attributes' => 'onclick="if(!confirm(\''.$GLOBALS['TL_LANG']['MSC']['deleteConfirm'].'\'))return false;Backend.getScrollOffset()"',
             ],
-            'show' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_trans_resource']['show'],
-                'href' => 'act=show',
-                'icon' => 'show.svg',
+            'show'       => [
+                'href'       => 'act=show',
+                'icon'       => 'show.svg',
                 'attributes' => 'style="margin-right:3px"',
             ],
         ],
     ],
     'palettes' => [
-        '__selector__' => ['addSubpalette'],
-        'default' => '{first_legend},name,dataType,original',
+        'default' => '{default_legend},name,dataType,original',
     ],
-    'subpalettes' => [
-        'addSubpalette' => 'textareaField',
-    ],
-    'fields' => [
-        'id' => [
+    'fields'   => [
+        'id'       => [
             'sql' => 'int(10) unsigned NOT NULL auto_increment',
         ],
-        'pid' => [
+        'pid'      => [
             'foreignKey' => 'tl_trans_project.name',
-            'relation' => [
+            'relation'   => [
                 'type' => 'belongsTo',
                 'load' => 'lazy',
             ],
-            'sql' => 'int(10) unsigned NOT NULL default 0',
+            'sql'        => 'int(10) unsigned NOT NULL default 0',
         ],
-        'tstamp' => [
+        'tstamp'   => [
             'sql' => "int(10) unsigned NOT NULL default '0'",
         ],
-        'name' => [
+        'name'     => [
             'inputType' => 'text',
-            'exclude' => true,
-            'search' => true,
-            'filter' => true,
-            'sorting' => true,
-            'flag' => 1,
-            'eval' => [
+            'exclude'   => true,
+            'search'    => true,
+            'filter'    => true,
+            'sorting'   => true,
+            'flag'      => 1,
+            'eval'      => [
                 'mandatory' => true,
                 'maxlength' => 255,
-                'tl_class' => 'w50',
+                'tl_class'  => 'w50',
             ],
-            'sql' => "varchar(255) NOT NULL default ''",
+            'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'original' => [
             'inputType' => 'text',
-            'exclude' => true,
-            'search' => true,
-            'filter' => true,
-            'sorting' => true,
-            'flag' => 1,
-            'eval' => [
+            'exclude'   => true,
+            'search'    => true,
+            'filter'    => true,
+            'sorting'   => true,
+            'flag'      => 1,
+            'eval'      => [
                 'mandatory' => true,
                 'maxlength' => 512,
-                'tl_class' => 'clr',
+                'tl_class'  => 'clr',
             ],
-            'sql' => "varchar(512) NOT NULL default ''",
+            'sql'       => "varchar(512) NOT NULL default ''",
         ],
         'dataType' => [
-            'inputType' => 'text',
-            'exclude' => true,
-            'search' => true,
-            'filter' => true,
-            'sorting' => true,
-            'flag' => 1,
-            'eval' => [
+            'inputType' => 'select',
+            'exclude'   => true,
+            'search'    => true,
+            'filter'    => true,
+            'sorting'   => true,
+            'flag'      => 1,
+            'options'   => ['php'],
+            'eval'      => [
                 'mandatory' => true,
                 'maxlength' => 255,
-                'tl_class' => 'w50',
+                'tl_class'  => 'w50',
             ],
-            'sql' => "varchar(255) NOT NULL default 'php'",
+            'sql'       => "varchar(255) NOT NULL default 'php'",
         ],
     ],
 ];

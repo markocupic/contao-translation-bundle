@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
 
         var data = new FormData();
-        data.append('authToken', ContaoTranslator);
+        data.append('authToken', ContaoTranslator.authToken);
 
         fetch(button.dataset.ajaxHref, {
           method: 'POST',

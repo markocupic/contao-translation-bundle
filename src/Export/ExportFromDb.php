@@ -106,6 +106,14 @@ class ExportFromDb
                     $arrTargetTranslations[$row['translationId']] = $row['translation'];
                 }
 
+                if(empty($arrTargetTranslations))
+                {
+                    $this->message->addError(
+                        $this->translator->trans('CT_TRANS.errorRepositoryExportDueToEmptyFile', [$language, $resource->name], 'contao_default')
+                    );
+                    continue;
+                }
+
                 $writer = new XliffWriter(
                     $project->sourceLanguage,
                     $language,

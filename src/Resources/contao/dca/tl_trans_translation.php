@@ -25,23 +25,25 @@ use Contao\System;
  */
 
 $GLOBALS['TL_DCA']['tl_trans_translation'] = [
-    'config' => [
-        'dataContainer' => 'Table',
+    'config'   => [
+        'dataContainer'    => 'Table',
         'enableVersioning' => true,
-        'ptable' => 'tl_trans_resource',
-        'sql' => [
+        'ptable'           => 'tl_trans_resource',
+        'sql'              => [
             'keys' => [
-                'id' => 'primary',
-                'pid' => 'index',
+                'id'            => 'primary',
+                'pid'           => 'index',
+                'translationId' => 'index',
             ],
         ],
     ],
-    'list' => [
-        'sorting' => [
-            'fields' => ['sorting'],
-            'panelLayout' => 'filter;sort,search,limit',
+    'list'     => [
+        'sorting'           => [
+            'fields'          => ['sorting'],
+            'panelLayout'     => 'filter;sort,search,limit',
+            'disableGrouping' => true,
         ],
-        'label' => [
+        'label'             => [
             'fields' => [
                 'translationId',
                 'language',
@@ -50,99 +52,96 @@ $GLOBALS['TL_DCA']['tl_trans_translation'] = [
         ],
         'global_operations' => [
             'all' => [
-                'label' => &$GLOBALS['TL_LANG']['MSC']['all'],
-                'href' => 'act=select',
-                'class' => 'header_edit_all',
+                'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
+                'href'       => 'act=select',
+                'class'      => 'header_edit_all',
                 'attributes' => 'onclick="Backend.getScrollOffset()" accesskey="e"',
             ],
         ],
-        'operations' => [
-            'edit' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_trans_translation']['edit'],
+        'operations'        => [
+            'edit'   => [
                 'href' => 'act=edit',
                 'icon' => 'edit.svg',
             ],
-            'copy' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_trans_translation']['copy'],
+            'copy'   => [
                 'href' => 'act=copy',
                 'icon' => 'copy.svg',
             ],
             'delete' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_trans_translation']['delete'],
-                'href' => 'act=delete',
-                'icon' => 'delete.svg',
+                'href'       => 'act=delete',
+                'icon'       => 'delete.svg',
                 'attributes' => 'onclick="if(!confirm(\''.$GLOBALS['TL_LANG']['MSC']['deleteConfirm'].'\'))return false;Backend.getScrollOffset()"',
             ],
-            'show' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_trans_translation']['show'],
-                'href' => 'act=show',
-                'icon' => 'show.svg',
+            'show'   => [
+                'label'      => &$GLOBALS['TL_LANG']['tl_trans_translation']['show'],
+                'href'       => 'act=show',
+                'icon'       => 'show.svg',
                 'attributes' => 'style="margin-right:3px"',
             ],
         ],
     ],
     'palettes' => [
-        'default' => '{first_legend},language,translationId,translation',
+        'default' => '{default_legend},language,translationId,translation',
     ],
-    'fields' => [
-        'id' => [
+    'fields'   => [
+        'id'            => [
             'sql' => 'int(10) unsigned NOT NULL auto_increment',
         ],
-        'pid' => [
+        'pid'           => [
             'foreignKey' => 'tl_trans_resource.name',
-            'relation' => [
+            'relation'   => [
                 'type' => 'belongsTo',
                 'load' => 'lazy',
             ],
-            'sql' => 'int(10) unsigned NOT NULL default 0',
+            'sql'        => 'int(10) unsigned NOT NULL default 0',
         ],
-        'tstamp' => [
+        'tstamp'        => [
             'sql' => "int(10) unsigned NOT NULL default '0'",
         ],
-        'language' => [
+        'language'      => [
             'inputType' => 'select',
-            'exclude' => true,
-            'search' => true,
-            'filter' => true,
-            'sorting' => true,
-            'options' => System::getContainer()->getParameter('markocupic_contao_translation.allowed_locales'),
-            'eval' => [
+            'exclude'   => true,
+            'search'    => true,
+            'filter'    => true,
+            'sorting'   => true,
+            'options'   => System::getContainer()->getParameter('markocupic_contao_translation.allowed_locales'),
+            'eval'      => [
                 'mandatory' => true,
-                'tl_class' => 'w50',
+                'tl_class'  => 'w50',
             ],
-            'sql' => "varchar(16) NOT NULL default ''",
+            'sql'       => "varchar(16) NOT NULL default ''",
         ],
         'translationId' => [
             'inputType' => 'text',
-            'exclude' => true,
-            'search' => true,
-            'filter' => true,
-            'sorting' => true,
-            'flag' => 1,
-            'eval' => [
+            'exclude'   => true,
+            'search'    => true,
+            'filter'    => true,
+            'sorting'   => true,
+            'flag'      => 1,
+            'eval'      => [
                 'mandatory' => true,
                 'maxlength' => 255,
-                'tl_class' => 'clr',
+                'tl_class'  => 'clr',
             ],
-            'sql' => "varchar(1024) NOT NULL default ''",
+            'sql'       => "varchar(1024) NOT NULL default ''",
         ],
-        'translation' => [
+        'translation'   => [
             'inputType' => 'text',
-            'exclude' => true,
-            'search' => true,
-            'filter' => true,
-            'sorting' => true,
-            'flag' => 1,
-            'eval' => [
+            'exclude'   => true,
+            'search'    => true,
+            'filter'    => true,
+            'sorting'   => true,
+            'flag'      => 1,
+            'eval'      => [
                 'useRawRequestData' => true,
-                'mandatory' => false,
-                'tl_class' => 'clr',
+                'mandatory'         => false,
+                'tl_class'          => 'clr',
             ],
-            'sql' => 'text NULL',
+            'sql'       => 'text NULL',
         ],
-        'sorting' => [
+        'sorting'       => [
             'inputType' => 'text',
-            'sql' => 'int(10) unsigned NOT NULL default 0',
+            'sql'       => 'int(10) unsigned NOT NULL default 0',
         ],
     ],
 ];

@@ -1,29 +1,40 @@
-{% extends '@Contao/block_unsearchable' %}
-
-{% block content %}
-
+<!-- indexer::stop -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="/bundles/markocupiccontaotranslation/js/default.js"></script>
 <link rel="stylesheet" href="/bundles/markocupiccontaotranslation/css/styles.css">
 
-<script>
-ContaoTranslator = {
-    'authToken': '{{ auth_token }}',
-}
-</script>
 
-<div class="trans-app">
-    <div class="row">
-        <left class="col-12 col-sm-4 col-lg-3">
-            {{ menu|raw }}
-        </left>
-        <main class="col-12 col-sm-8 col-lg-9">
-            <div class="inner">
-                {{ messages|raw }}
-                {{ content|raw }}
-            </div>
-        </main>
+<div class="{{ class }} block"{{ cssID }}{% if style|default(null) %} style="{{ style }}"{% endif %}>
+    <div class="trans-app-header">
+        <div class="inner">
+            {% if headline|default(null) %}
+            <{{ hl }}>{{ headline }}</{{ hl }}>
+            {% endif %}
+        </div>
     </div>
-</div>
 
-{{ parent() }}
-{% endblock %}
+    <script>
+    ContaoTranslator = {
+        'authToken': '{{ auth_token }}',
+    }
+    </script>
+
+    <div class="trans-app">
+        <div class="row">
+            <left class="col-12 col-sm-4 col-lg-3">
+                <div class="inner">
+                    {{ menu|raw }}
+                </div>
+            </left>
+            <main class="col-12 col-sm-8 col-lg-9">
+                <div class="inner">
+                    {{ messages|raw }}
+                    {{ content|raw }}
+                </div>
+            </main>
+        </div>
+    </div>
+
+</div>
+<!-- indexer::continue -->

@@ -25,119 +25,117 @@ use Contao\System;
  */
 
 $GLOBALS['TL_DCA']['tl_trans_project'] = [
-    'config' => [
-        'dataContainer' => 'Table',
+    'config'   => [
+        'dataContainer'    => 'Table',
         'enableVersioning' => true,
-        'ctable' => [
+        'ctable'           => [
             'tl_trans_language',
             'tl_trans_resource',
         ],
-        'sql' => [
+        'sql'              => [
             'keys' => [
                 'id' => 'primary',
             ],
         ],
     ],
-    'list' => [
-        'sorting' => [
-            'mode' => 2,
-            'fields' => ['name'],
-            'flag' => 1,
+    'list'     => [
+        'sorting'           => [
+            'mode'        => 2,
+            'fields'      => ['name'],
+            'flag'        => 1,
             'panelLayout' => 'filter;sort,search,limit',
         ],
-        'label' => [
+        'label'             => [
             'fields' => ['name'],
             'format' => '%s',
         ],
         'global_operations' => [
             'all' => [
-                'label' => &$GLOBALS['TL_LANG']['MSC']['all'],
-                'href' => 'act=select',
-                'class' => 'header_edit_all',
+                'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
+                'href'       => 'act=select',
+                'class'      => 'header_edit_all',
                 'attributes' => 'onclick="Backend.getScrollOffset()" accesskey="e"',
             ],
         ],
-        'operations' => [
-            'editLang' => [
-                'href' => 'table=tl_trans_language',
-                'icon' => 'edit.svg',
-            ],
-            'editRes' => [
-                'href' => 'table=tl_trans_resource',
-                'icon' => 'iconPLAIN.svg',
-            ],
+        'operations'        => [
             'editheader' => [
                 'href' => 'act=edit',
                 'icon' => 'header.svg',
             ],
-            'copy' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_trans_project']['copy'],
+            'editLang'   => [
+                'href' => 'table=tl_trans_language',
+                'icon' => 'edit.svg',
+            ],
+            'editRes'    => [
+                'href' => 'table=tl_trans_resource',
+                'icon' => 'iconPLAIN.svg',
+            ],
+            'copy'       => [
                 'href' => 'act=copy',
                 'icon' => 'copy.svg',
             ],
-            'delete' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_trans_project']['delete'],
-                'href' => 'act=delete',
-                'icon' => 'delete.svg',
+            'delete'     => [
+                'href'       => 'act=delete',
+                'icon'       => 'delete.svg',
                 'attributes' => 'onclick="if(!confirm(\''.$GLOBALS['TL_LANG']['MSC']['deleteConfirm'].'\'))return false;Backend.getScrollOffset()"',
             ],
-            'show' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_trans_project']['show'],
-                'href' => 'act=show',
-                'icon' => 'show.svg',
+            'show'       => [
+                'href'       => 'act=show',
+                'icon'       => 'show.svg',
                 'attributes' => 'style="margin-right:3px"',
             ],
         ],
     ],
     'palettes' => [
-        'default' => '{misc_legend},name,sourceLanguage,languageFilesFolder',
+        'default' => '{default_legend},name,sourceLanguage,languageFilesFolder',
     ],
-    'fields' => [
-        'id' => [
+    'fields'   => [
+        'id'                  => [
             'sql' => 'int(10) unsigned NOT NULL auto_increment',
         ],
-        'tstamp' => [
+        'tstamp'              => [
             'sql' => "int(10) unsigned NOT NULL default '0'",
         ],
-        'name' => [
+        'name'                => [
             'inputType' => 'text',
-            'exclude' => true,
-            'search' => true,
-            'filter' => true,
-            'sorting' => true,
-            'flag' => 1,
-            'eval' => [
+            'exclude'   => true,
+            'search'    => true,
+            'filter'    => true,
+            'sorting'   => true,
+            'flag'      => 1,
+            'eval'      => [
                 'mandatory' => true,
                 'maxlength' => 255,
-                'tl_class' => 'w50',
+                'tl_class'  => 'w50',
             ],
-            'sql' => "varchar(255) NOT NULL default ''",
+            'sql'       => "varchar(255) NOT NULL default ''",
         ],
-        'sourceLanguage' => [
+        'sourceLanguage'      => [
             'inputType' => 'select',
-            'exclude' => true,
-            'search' => true,
-            'filter' => true,
-            'sorting' => true,
-            'options' => System::getContainer()->getParameter('markocupic_contao_translation.allowed_locales'),
-            'eval' => [
-                'mandatory' => true,
+            'exclude'   => true,
+            'search'    => true,
+            'filter'    => true,
+            'sorting'   => true,
+            'options'   => System::getContainer()->getParameter('markocupic_contao_translation.allowed_locales'),
+            'eval'      => [
+                'mandatory'          => true,
+                'placeholder'        => 'vendor-name/project-name',
                 'includeBlankOption' => false,
-                'tl_class' => 'w50',
+                'tl_class'           => 'w50',
             ],
-            'sql' => "varchar(16) NOT NULL default 'en'",
+            'sql'       => "varchar(16) NOT NULL default 'en'",
         ],
         'languageFilesFolder' => [
             'inputType' => 'text',
-            'exclude' => true,
-            'default' => 'vendor-name/project-name/src/Resources/contao/languages',
-            'eval' => [
-                'mandatory' => true,
-                'maxlength' => 512,
-                'tl_class' => 'clr',
+            'exclude'   => true,
+            'eval'      => [
+                'mandatory'     => true,
+                'maxlength'     => 512,
+                'placeholder'   => 'vendor-name/project-name/src/Resources/contao/languages',
+                'tl_class'      => 'clr',
                 'trailingSlash' => false,
             ],
-            'sql' => "varchar(512) NOT NULL default 'vendor-name/project-name/src/Resources/contao/languages'",
+            'sql'       => "varchar(512) NOT NULL default 'vendor-name/project-name/src/Resources/contao/languages'",
         ],
     ],
 ];

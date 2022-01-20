@@ -33,8 +33,29 @@ class TransTranslationModel extends Model
     public static function countTranslatedByProjectAndLanguage(TransProjectModel $project, string $language): int
     {
         $objDb = Database::getInstance()
-            ->prepare('SELECT COUNT(id) as total FROM tl_trans_translation WHERE language = ? AND pid IN (SELECT id FROM tl_trans_resource WHERE pid = ?)')
-            ->execute($language, $project->id)
+            ->prepare('SELECT COUNT(id) as total FROM tl_trans_translation WHERE translation != ? AND language = ? AND pid IN (SELECT id FROM tl_trans_resource WHERE pid = ?)')
+            ->execute('', $language, $project->id)
+        ;
+
+        return (int) $objDb->total;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public static function countUntranslatedByResourceAndLanguage(TransResourceModel $resource, string $language): int
+    {
+        $total = static::countTranslatedByResourceAndLanguage($resource, $resource->getRelated('pid')->sourceLanguage);
+        $translated = static::countTranslatedByResourceAndLanguage($resource, $language);
+
+        return $total - $translated;
+    }
+
+    public static function countTranslatedByResourceAndLanguage(TransResourceModel $resource, string $language): int
+    {
+        $objDb = Database::getInstance()
+            ->prepare('SELECT COUNT(id) as total FROM tl_trans_translation WHERE translation != ? AND language = ? AND pid = ?')
+            ->execute('', $language, $resource->id)
         ;
 
         return (int) $objDb->total;
@@ -43,8 +64,8 @@ class TransTranslationModel extends Model
     public static function findByResourceAndLanguage(TransResourceModel $resource, string $language): ?Collection
     {
         return self::findBy(
-            ['tl_trans_translation.language = ?', 'tl_trans_translation.pid = ?'],
-            [$language, $resource->id],
+            ['tl_trans_translation.translation != ?', 'tl_trans_translation.language = ?', 'tl_trans_translation.pid = ?'],
+            ['', $language, $resource->id],
             [
                 'order' => 'tl_trans_translation.sorting',
             ]

@@ -2,6 +2,8 @@
 
     <h3 class="headline">{{ project.name }} - {{ 'CT_TRANS.languageResources'|trans({}, 'contao_default') }}</h3>
 
+    <div class="go-back-btn"><a href="javascript: history.back()">{{ 'MSC.backBT'|trans({}, 'contao_default') }}</a></div>
+
     {{ form|raw }}
 
     <div class="accordion mt-4" id="transLanguages">
@@ -9,7 +11,7 @@
         <div class="accordion-item">
             <h3 class="accordion-header" id="transLanguage{{ language.id }}">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLanguage{{ language.id }}" aria-expanded="true" aria-controls="collapseLanguage{{ language.id }}">
-                    {{ language.language }} (translated: {{ language.perc_translated }} %)
+                    {{ language.language }} ({{ 'CT_TRANS.translated'|trans({}, 'contao_default') }}: {{ language.perc_translated }} %)
                 </button>
             </h3>
             <div id="collapseLanguage{{ language.id }}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#transLanguages">

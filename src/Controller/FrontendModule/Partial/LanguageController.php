@@ -67,7 +67,12 @@ class LanguageController
         while (false !== ($row = $stmt->fetchAssociative())) {
             $row['untranslated'] = TransTranslationModel::countUntranslatedByProjectAndLanguage($project, $row['language']);
             $row['total'] = TransTranslationModel::countTranslatedByProjectAndLanguage($project, $project->sourceLanguage);
-            $row['perc_translated'] = 100 - ceil($row['untranslated'] / $row['total'] * 100);
+
+            if ($row['total'] > 0) {
+                $row['perc_translated'] = 100 - ceil($row['untranslated'] / $row['total'] * 100);
+            } else {
+                $row['perc_translated'] = '-';
+            }
 
             // Add translation links
             $factory = new MenuFactory();
@@ -76,8 +81,10 @@ class LanguageController
 
             if (null !== ($resources = TransResourceModel::findByPid($project->id))) {
                 while ($resources->next()) {
+
+
                     $menu->addChild(
-                        $resources->name,
+                        $resources->name. ' ' . $this->getStrTranslatedPrcnt($resources->current(), $row['language']),
                         [
                             'uri' => Url::addQueryString(
                                 sprintf(
@@ -147,5 +154,22 @@ class LanguageController
         }
 
         return $form->generate();
+    }
+
+    private function getStrTranslatedPrcnt(TransResourceModel $resource, string $language): string
+    {
+        $untranslated =  TransTranslationModel::countUntranslatedByResourceAndLanguage($resource, $language);
+        $total =  TransTranslationModel::countTranslatedByResourceAndLanguage($resource, $resource->getRelated('pid')->sourceLanguage);
+
+        $translated = '-';
+        if ($total > 0) {
+            $translated =  (string) ceil(100 - ($untranslated / $total * 100));
+        }
+
+        return sprintf(
+                '(%s: %s %%)',
+                $this->translator->trans('CT_TRANS.translated', [], 'contao_default'),
+                $translated,
+            );
     }
 }

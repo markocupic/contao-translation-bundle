@@ -17,11 +17,11 @@ use Markocupic\ContaoTranslationBundle\Controller\FrontendModule\TranslationModu
 /*
  * Backend modules
  */
-$GLOBALS['TL_LANG']['MOD']['translation'] = 'Übersetzungen';
-$GLOBALS['TL_LANG']['MOD']['trans_project'] = ['Projekte', 'Projekte'];
+$GLOBALS['TL_LANG']['MOD']['translation'] = 'Translation APP';
+$GLOBALS['TL_LANG']['MOD']['trans_projects'] = ['Projects', 'Edit projects'];
 
 /*
  * Frontend modules
  */
-$GLOBALS['TL_LANG']['FMD']['translation'] = 'Übersetzungen';
-$GLOBALS['TL_LANG']['FMD'][TranslationModuleController::TYPE] = ['Übersetzungsmodul', 'Übersetzungsmodul'];
+$GLOBALS['TL_LANG']['FMD']['translation'] = 'Translation tools';
+$GLOBALS['TL_LANG']['FMD'][TranslationModuleController::TYPE] = ['Translation APP', 'Add the translation app to the layout.'];

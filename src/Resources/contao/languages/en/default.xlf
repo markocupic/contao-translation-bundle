@@ -47,11 +47,14 @@
       <trans-unit id="CT_TRANS.importResourcesFromPath">
         <source>Import resources from vendor directory</source>
       </trans-unit>
+      <trans-unit id="CT_TRANS.translated">
+        <source>translated</source>
+      </trans-unit>
       <trans-unit id="CT_TRANS.confirmDeleteProject">
-        <source>Successfully deleted project %s.</source>
+        <source>Successfully deleted project "%s".</source>
       </trans-unit>
       <trans-unit id="CT_TRANS.confirmCreateProject">
-        <source>Successfully created project %s.</source>
+        <source>Successfully created project "%s".</source>
       </trans-unit>
       <trans-unit id="CT_TRANS.deleteOrphaned">
         <source>Deleted "%s" because we couldn't find the key in a source language file. .</source>
@@ -70,6 +73,9 @@
       </trans-unit>
       <trans-unit id="CT_TRANS.errorRepositoryExport">
         <source>Error while trying to export resource "%s/%s".</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.errorRepositoryExportDueToEmptyFile">
+        <source>Skipped resource "%s/%s" due to empty file.</source>
       </trans-unit>
     </body>
   </file>

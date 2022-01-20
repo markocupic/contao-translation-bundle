@@ -15,16 +15,7 @@ declare(strict_types=1);
 /*
  * Legends
  */
-$GLOBALS['TL_LANG']['tl_trans_resource']['first_legend'] = 'Basis Einstellungen';
-$GLOBALS['TL_LANG']['tl_trans_resource']['second_legend'] = 'Erweiterte Einstellungen';
-
-/*
- * Operations
- */
-$GLOBALS['TL_LANG']['tl_trans_resource']['edit'] = ['Datensatz mit ID: %s bearbeiten', 'Datensatz mit ID: %s bearbeiten'];
-$GLOBALS['TL_LANG']['tl_trans_resource']['copy'] = ['Datensatz mit ID: %s kopieren', 'Datensatz mit ID: %s kopieren'];
-$GLOBALS['TL_LANG']['tl_trans_resource']['delete'] = ['Datensatz mit ID: %s löschen', 'Datensatz mit ID: %s löschen'];
-$GLOBALS['TL_LANG']['tl_trans_resource']['show'] = ['Datensatz mit ID: %s ansehen', 'Datensatz mit ID: %s ansehen'];
+$GLOBALS['TL_LANG']['tl_trans_resource']['default_legend'] = 'Basic settings';
 
 /*
  * Fields

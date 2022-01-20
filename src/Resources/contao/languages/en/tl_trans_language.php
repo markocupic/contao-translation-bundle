@@ -15,30 +15,9 @@ declare(strict_types=1);
 /*
  * Legends
  */
-$GLOBALS['TL_LANG']['tl_trans_language']['first_legend'] = 'Basis Einstellungen';
-$GLOBALS['TL_LANG']['tl_trans_language']['second_legend'] = 'Erweiterte Einstellungen';
-
-/*
- * Operations
- */
-$GLOBALS['TL_LANG']['tl_trans_language']['edit'] = ['Datensatz mit ID: %s bearbeiten', 'Datensatz mit ID: %s bearbeiten'];
-$GLOBALS['TL_LANG']['tl_trans_language']['copy'] = ['Datensatz mit ID: %s kopieren', 'Datensatz mit ID: %s kopieren'];
-$GLOBALS['TL_LANG']['tl_trans_language']['delete'] = ['Datensatz mit ID: %s löschen', 'Datensatz mit ID: %s löschen'];
-$GLOBALS['TL_LANG']['tl_trans_language']['show'] = ['Datensatz mit ID: %s ansehen', 'Datensatz mit ID: %s ansehen'];
+$GLOBALS['TL_LANG']['tl_trans_language']['default_legend'] = 'Basic settings';
 
 /*
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_trans_language']['title'] = ['Titel', 'Geben Sie den Titel ein'];
-$GLOBALS['TL_LANG']['tl_trans_language']['language'] = ['Language', 'Please select a language which you want tr translate.'];
-
-/*
- * References
- */
-$GLOBALS['TL_LANG']['tl_trans_language']['firstoption'] = 'Erste Option';
-$GLOBALS['TL_LANG']['tl_trans_language']['secondoption'] = 'Zweite Option';
-
-/*
- * Buttons
- */
-$GLOBALS['TL_LANG']['tl_trans_language']['customButton'] = 'Custom Routine starten';
+$GLOBALS['TL_LANG']['tl_trans_language']['language'] = ['Language', 'Please select a language.'];

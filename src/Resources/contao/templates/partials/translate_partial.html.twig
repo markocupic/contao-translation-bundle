@@ -1,6 +1,9 @@
 <div id="translationTableApp" class="trans-translate">
     <div v-cloak ref="app" data-project="{{ project.id }}" data-resource="{{ resource.id }}" data-language="{{ language }}" data-csrf-token="{{ csrf_token }}">
         <h3>{{ project.name }} - {{ language }} - {{ resource.name }}</h3>
+
+        <div class="go-back-btn"><a href="javascript: history.back()">{{ 'MSC.backBT'|trans({}, 'contao_default') }}</a></div>
+
         <div v-if="rows" v-for="(row, index) in rows" v-bind:class="itemsOpened[index] && itemsOpened[index] == true ? 'open' : ''" v-bind:data-index="index" v-bind:data-source-id="row.source.id" v-bind:data-translation-id="row.target.translation_id" class="translation-item row">
             <div class="translation-source col-12 mb-3">
                 <div>
