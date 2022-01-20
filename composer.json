@@ -25,7 +25,7 @@
         "contao/core-bundle": "^4.9",
         "codefog/contao-haste": "^4.20",
         "ramsey/uuid": "*",
-        "markocupic/zip-bundle": "^1.0",
+        "markocupic/zip-bundle": "^1.0"
     },
     "require-dev": {
         "contao/manager-plugin": "^2.3",
@@ -51,6 +51,5 @@
     },
     "extra": {
         "contao-manager-plugin": "Markocupic\\ContaoTranslationBundle\\ContaoManager\\Plugin"
-    },
-    "version": "1.0"
+    }
 }
