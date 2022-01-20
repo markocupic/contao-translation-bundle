@@ -1,6 +1,6 @@
 ![Alt text](docs/logo.png?raw=true "logo")
 
-# "Mini Transifex" als Contao Frontend Modul
+# "Mini Transifex" als Contao Frontend Modul (still under construction)
 
 Dieses Bundle für das Contao CMS bietet
   für Programmierer mit kleinem Budget die Möglichkeit **Übersetzungsdateien im XLF Format**
