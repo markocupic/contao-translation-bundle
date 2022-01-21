@@ -17,6 +17,8 @@ declare(strict_types=1);
  */
 $GLOBALS['TL_LANG']['CT_TRANS']['addLocale'] = 'Add a new language';
 $GLOBALS['TL_LANG']['CT_TRANS']['submitLbl'] = 'Submit';
+$GLOBALS['TL_LANG']['CT_TRANS']['selectFiles'] = 'Select file';
+$GLOBALS['TL_LANG']['CT_TRANS']['fileUploadSubmitLbl'] = 'File upload';
 $GLOBALS['TL_LANG']['CT_TRANS']['edit'] = 'Edit';
 $GLOBALS['TL_LANG']['CT_TRANS']['save'] = 'Save';
 $GLOBALS['TL_LANG']['CT_TRANS']['delete'] = 'Delete';
@@ -36,6 +38,8 @@ $GLOBALS['TL_LANG']['CT_TRANS']['deleteProject'] = 'Delete project';
 $GLOBALS['TL_LANG']['CT_TRANS']['languageResources'] = 'Language resources';
 $GLOBALS['TL_LANG']['CT_TRANS']['importResourcesFromPath'] = 'Import resources from vendor directory';
 $GLOBALS['TL_LANG']['CT_TRANS']['translated'] = 'translated';
+$GLOBALS['TL_LANG']['CT_TRANS']['resources'] = 'Resources';
+$GLOBALS['TL_LANG']['CT_TRANS']['languages'] = 'Languages';
 
 /*
  * Messages
@@ -50,8 +54,3 @@ $GLOBALS['TL_LANG']['CT_TRANS']['confirmDeleteResource'] = 'Successfully deleted
 $GLOBALS['TL_LANG']['CT_TRANS']['confirmRepositoryExport'] = 'Successfully exported "%s/%s".';
 $GLOBALS['TL_LANG']['CT_TRANS']['errorRepositoryExport'] = 'Error while trying to export resource "%s/%s".';
 $GLOBALS['TL_LANG']['CT_TRANS']['errorRepositoryExportDueToEmptyFile'] = 'Skipped resource "%s/%s" due to empty file.';
-
-/*
- * Errors
- */
-//$GLOBALS['TL_LANG']['ERR'][''] = '';

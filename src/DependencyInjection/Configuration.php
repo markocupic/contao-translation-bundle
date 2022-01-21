@@ -29,7 +29,7 @@ class Configuration implements ConfigurationInterface
             ->children()
             ->arrayNode('allowed_locales')
             ->prototype('scalar')->end()
-            ->defaultValue(['cs', 'de', 'en', 'es', 'fa', 'fr', 'it', 'ja',  'nl', 'pl', 'ru', 'sr', 'sv', 'zh'])
+            ->defaultValue(['en', 'de', 'cs', 'es', 'fa', 'fr', 'it', 'ja',  'nl', 'pl', 'ru', 'sr', 'sv', 'zh'])
             ->end()
             ->end()
         ;

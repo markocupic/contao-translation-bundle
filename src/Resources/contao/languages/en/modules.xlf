@@ -8,7 +8,7 @@
       <trans-unit id="MOD.trans_projects.0">
         <source>Projects</source>
       </trans-unit>
-      <trans-unit id="MOD.trans_project.1">
+      <trans-unit id="MOD.trans_projects.1">
         <source>Edit projects</source>
       </trans-unit>
       <trans-unit id="FMD.translation">

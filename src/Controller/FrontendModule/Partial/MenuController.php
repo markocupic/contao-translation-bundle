@@ -51,7 +51,7 @@ class MenuController
         $menu->setChildrenAttribute('class', 'trans-menu');
 
         // Remove query strings
-        $url = Url::removeQueryString(array_keys($_GET));
+        $url = Url::removeQueryString($request->query->keys());
 
         while (false !== ($row = $stmt->fetchAssociative())) {
             $partial->hasProjects = true;

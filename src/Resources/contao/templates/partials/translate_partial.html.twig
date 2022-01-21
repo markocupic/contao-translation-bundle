@@ -1,6 +1,6 @@
 <div id="translationTableApp" class="trans-translate">
     <div v-cloak ref="app" data-project="{{ project.id }}" data-resource="{{ resource.id }}" data-language="{{ language }}" data-csrf-token="{{ csrf_token }}">
-        <h3>{{ project.name }} - {{ language }} - {{ resource.name }}</h3>
+        <h3 class="headline">{{ project.name }} - {{ language }} - {{ resource.name }}</h3>
 
         <div class="go-back-btn"><a href="javascript: history.back()">{{ 'MSC.backBT'|trans({}, 'contao_default') }}</a></div>
 

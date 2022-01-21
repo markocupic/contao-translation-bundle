@@ -46,7 +46,7 @@ class ResourceController
     public function generate(Template $template, ModuleModel $model, Request $request): string
     {
         if (null === ($project = TransProjectModel::findByPk($request->query->get('project'))) || !$request->query->has('act')) {
-            $url = Url::removeQueryString(array_keys($_GET));
+            $url = Url::removeQueryString($request->query->keys());
             Controller::redirect($url);
         }
 

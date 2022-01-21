@@ -25,19 +25,22 @@ use Markocupic\ContaoTranslationBundle\Model\TransProjectModel;
 use Markocupic\ContaoTranslationBundle\Upload\FileUpload;
 use Ramsey\Uuid\Uuid;
 use Safe\Exceptions\FilesystemException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use function Safe\mkdir;
 use Symfony\Component\HttpFoundation\Request;
 
 class UploadController
 {
-    private DbImport $DbImport;
+    private DbImport $dbImport;
     private FileUpload $fileUpload;
+    private TranslatorInterface $translator;
     private string $projectDir;
 
-    public function __construct(DbImport $dbImport, FileUpload $fileUpload, string $projectDir)
+    public function __construct(DbImport $dbImport, FileUpload $fileUpload, TranslatorInterface $translator, string $projectDir)
     {
         $this->dbImport = $dbImport;
         $this->fileUpload = $fileUpload;
+        $this->translator = $translator;
         $this->projectDir = $projectDir;
     }
 
@@ -73,7 +76,7 @@ class UploadController
         );
 
         $form->addFormField('file', [
-            'label' => 'File upload',
+            'label' => $this->translator->trans('CT_TRANS.selectFiles', [], 'contao_default'),
             'inputType' => 'upload',
             'eval' => [
                 'extensions' => 'xlf',
@@ -82,7 +85,7 @@ class UploadController
         ]);
 
         $form->addFormField('submit', [
-            'label' => 'Upload',
+            'label' => $this->translator->trans('CT_TRANS.fileUploadSubmitLbl', [], 'contao_default'),
             'inputType' => 'submit',
             'ignoreModelValue' => true,
         ]);

@@ -8,6 +8,12 @@
       <trans-unit id="CT_TRANS.submitLbl">
         <source>Submit</source>
       </trans-unit>
+      <trans-unit id="CT_TRANS.selectFiles">
+        <source>Select file</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.fileUploadSubmitLbl">
+        <source>File upload</source>
+      </trans-unit>
       <trans-unit id="CT_TRANS.edit">
         <source>Edit</source>
       </trans-unit>
@@ -49,6 +55,12 @@
       </trans-unit>
       <trans-unit id="CT_TRANS.translated">
         <source>translated</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.resources">
+        <source>Resources</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.languages">
+        <source>Languages</source>
       </trans-unit>
       <trans-unit id="CT_TRANS.confirmDeleteProject">
         <source>Successfully deleted project "%s".</source>

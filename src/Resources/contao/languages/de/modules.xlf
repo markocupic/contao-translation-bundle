@@ -10,7 +10,7 @@
         <source>Projects</source>
         <target>Projekte</target>
       </trans-unit>
-      <trans-unit id="MOD.trans_project.1">
+      <trans-unit id="MOD.trans_projects.1">
         <source>Edit projects</source>
         <target>Projekte bearbeiten</target>
       </trans-unit>

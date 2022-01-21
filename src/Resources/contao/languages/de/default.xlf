@@ -10,6 +10,14 @@
         <source>Submit</source>
         <target>Senden</target>
       </trans-unit>
+      <trans-unit id="CT_TRANS.selectFiles">
+        <source>Select file</source>
+        <target>Dateien auswählen</target>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.fileUploadSubmitLbl">
+        <source>File upload</source>
+        <target>Dateien hochladen</target>
+      </trans-unit>
       <trans-unit id="CT_TRANS.edit">
         <source>Edit</source>
         <target>Bearbeiten</target>
@@ -65,6 +73,14 @@
       <trans-unit id="CT_TRANS.translated">
         <source>translated</source>
         <target>übersetzt</target>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.resources">
+        <source>Resources</source>
+        <target>Ressourcen</target>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.languages">
+        <source>Languages</source>
+        <target>Sprachen</target>
       </trans-unit>
       <trans-unit id="CT_TRANS.confirmDeleteProject">
         <source>Successfully deleted project "%s".</source>

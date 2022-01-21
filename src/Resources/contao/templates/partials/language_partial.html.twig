@@ -6,11 +6,15 @@
 
     {{ form|raw }}
 
+    <hr>
+
+    <h3 class="headline">{{ 'CT_TRANS.languages'|trans({}, 'contao_default') }}</h3>
+
     <div class="accordion mt-4" id="transLanguages">
         {% for language in languages %}
         <div class="accordion-item">
-            <h3 class="accordion-header" id="transLanguage{{ language.id }}">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLanguage{{ language.id }}" aria-expanded="true" aria-controls="collapseLanguage{{ language.id }}">
+            <h3 class="headline accordion-header mb-0" id="transLanguage{{ language.id }}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLanguage{{ language.id }}" aria-expanded="false" aria-controls="collapseLanguage{{ language.id }}">
                     {{ language.language }} ({{ 'CT_TRANS.translated'|trans({}, 'contao_default') }}: {{ language.perc_translated }} %)
                 </button>
             </h3>
@@ -18,7 +22,7 @@
                 <div class="accordion-body">
                     <div class="row">
                         <div class="col-6">
-                            <h3>{{ 'CT_TRANS.translate'|trans({}, 'contao_default') }}</h3>
+                            <h4 class="headline">{{ 'CT_TRANS.translate'|trans({}, 'contao_default') }}</h4>
                             {{ language.trans_nav|raw }}
                         </div>
                         <div class="col-6">

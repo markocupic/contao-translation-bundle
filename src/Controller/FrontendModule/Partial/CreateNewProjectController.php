@@ -65,7 +65,10 @@ class CreateNewProjectController
         if ($form->validate()) {
             $name = $form->fetch('name');
 
-            if (!$this->connection->fetchOne('SELECT id FROM tl_trans_project WHERE name = ?', [$name])) {
+            if (!$this->connection->fetchOne(
+                    'SELECT id FROM tl_trans_project WHERE name = ?',
+                    [$name],
+                )) {
                 $model->tstamp = time();
                 $model->save();
             }
@@ -74,7 +77,7 @@ class CreateNewProjectController
                 $this->translator->trans('CT_TRANS.confirmCreateProject', [$name], 'contao_default')
             );
 
-            $url = Url::removeQueryString(array_keys($_GET));
+            $url = Url::removeQueryString($request->query->keys());
             Controller::redirect($url);
         }
 
