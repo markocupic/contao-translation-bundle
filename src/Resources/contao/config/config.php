@@ -12,7 +12,6 @@ declare(strict_types=1);
  * @link https://github.com/markocupic/contao-translation-bundle
  */
 
-use Contao\Environment;
 use Markocupic\ContaoTranslationBundle\Model\TransLanguageModel;
 use Markocupic\ContaoTranslationBundle\Model\TransProjectModel;
 use Markocupic\ContaoTranslationBundle\Model\TransResourceModel;
@@ -21,7 +20,7 @@ use Markocupic\ContaoTranslationBundle\Model\TransTranslationModel;
 /*
  * Backend modules
  */
-$GLOBALS['BE_MOD']['translation']['trans_project'] = [
+$GLOBALS['BE_MOD']['translation']['trans_projects'] = [
     'tables' => [
         'tl_trans_project',
         'tl_trans_language',
