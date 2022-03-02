@@ -59,11 +59,11 @@ class MenuController
                 'uri' => Url::addQueryString('act=project&project='.$row['id'], $url),
             ]);
 
-            if ($request->query->get('project') === $row['id']) {
-                $level1->addChild('Languages', [
+            if ((int) $request->query->get('project') === (int) $row['id']) {
+                $level1->addChild($this->translator->trans('CT_TRANS.languages', [], 'contao_default'), [
                     'uri' => Url::addQueryString('act=language&project='.$row['id'], $url),
                 ]);
-                $level1->addChild('Resources', [
+                $level1->addChild($this->translator->trans('CT_TRANS.resources', [], 'contao_default'), [
                     'uri' => Url::addQueryString('act=resource&project='.$row['id'], $url),
                 ]);
             }

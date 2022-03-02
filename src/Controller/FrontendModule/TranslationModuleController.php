@@ -91,7 +91,6 @@ class TranslationModuleController extends AbstractFrontendModuleController
             }
         }
 
-
         return parent::__invoke($request, $model, $section, $classes);
     }
 

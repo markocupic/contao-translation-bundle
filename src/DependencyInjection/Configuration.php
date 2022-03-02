@@ -27,10 +27,10 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder->getRootNode()
             ->children()
-            ->arrayNode('allowed_locales')
-            ->prototype('scalar')->end()
-            ->defaultValue(['en', 'de', 'cs', 'es', 'fa', 'fr', 'it', 'ja',  'nl', 'pl', 'ru', 'sr', 'sv', 'zh'])
-            ->end()
+                ->arrayNode('allowed_locales')
+                    ->prototype('scalar')->end()
+                    ->defaultValue(['en', 'de', 'cs', 'es', 'fa', 'fr', 'it', 'ja', 'nl', 'pl', 'ru', 'sr', 'sv', 'zh'])
+                ->end()
             ->end()
         ;
 

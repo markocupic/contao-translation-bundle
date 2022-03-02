@@ -1,5 +1,13 @@
 .mod_translation_module {
 
+  .invisible{
+    display: none;
+  }
+
+  .error{
+    color: red;
+  }
+
   [v-cloak] {
     display: none;
   }

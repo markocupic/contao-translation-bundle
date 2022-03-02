@@ -59,11 +59,6 @@ class ProjectController
             Controller::redirect($url);
         }
 
-        if ('export' === $request->query->get('do')) {
-            $repoImport = $request->query->has('repo_import');
-            $this->exportFromDb->export($project, $repoImport);
-        }
-
         $partial = new FrontendTemplate('project_partial');
 
         // Generate the form
@@ -74,20 +69,7 @@ class ProjectController
         $menu = $factory->createItem('DeleteMenu');
         $menu->setChildrenAttribute('class', 'trans-menu');
 
-        $href = Url::addQueryString('do=export');
-        $menu->addChild(
-            $this->translator->trans('CT_TRANS.downloadLangFiles', [], 'contao_default'),
-            ['uri' => $href]
-        );
-
-        $href = Url::addQueryString('do=export&repo_import=true');
-        $menu->addChild(
-            $this->translator->trans('CT_TRANS.exportToRepository', [], 'contao_default'),
-            ['uri' => $href]
-        );
-
         $href = '/trans_api/project/delete/'.$project->id;
-
         $menu->addChild(
             $this->translator->trans('CT_TRANS.deleteProject', [$project->name], 'contao_default'),
             ['uri' => $href]
@@ -113,9 +95,14 @@ class ProjectController
         $form = $this->projectForm->getForm($model);
 
         if ($form->validate()) {
-            $model->tstamp = time();
-            $model->save();
-            Controller::reload();
+            if (!is_dir($this->projectDir.'/'.$model->languageFilesFolder)) {
+                $widget = $form->getWidget('languageFilesFolder');
+                $widget->addError($this->translator->trans('CT_TRANS.invalidLanguageFilesFolder', [], 'contao_default'));
+            } else {
+                $model->tstamp = time();
+                $model->save();
+                Controller::reload();
+            }
         }
 
         return $form->generate();

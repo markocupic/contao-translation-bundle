@@ -12,7 +12,7 @@
         <source>Select file</source>
       </trans-unit>
       <trans-unit id="CT_TRANS.fileUploadSubmitLbl">
-        <source>File upload</source>
+        <source>XLF-File upload</source>
       </trans-unit>
       <trans-unit id="CT_TRANS.edit">
         <source>Edit</source>
@@ -88,6 +88,9 @@
       </trans-unit>
       <trans-unit id="CT_TRANS.errorRepositoryExportDueToEmptyFile">
         <source>Skipped resource "%s/%s" due to empty file.</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.invalidLanguageFilesFolder">
+        <source>Language folder not found. Please add a valid directory path.</source>
       </trans-unit>
     </body>
   </file>

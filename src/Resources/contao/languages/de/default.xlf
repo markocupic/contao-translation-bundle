@@ -15,8 +15,8 @@
         <target>Dateien auswählen</target>
       </trans-unit>
       <trans-unit id="CT_TRANS.fileUploadSubmitLbl">
-        <source>File upload</source>
-        <target>Dateien hochladen</target>
+        <source>XLF-File upload</source>
+        <target>XLF-Dateien hochladen</target>
       </trans-unit>
       <trans-unit id="CT_TRANS.edit">
         <source>Edit</source>
@@ -117,6 +117,10 @@
       <trans-unit id="CT_TRANS.errorRepositoryExportDueToEmptyFile">
         <source>Skipped resource "%s/%s" due to empty file.</source>
         <target>Die Sprachdatei "%s/%s" wurde nicht hochgeladen, weil Sie keine Übersetzungen enthält.</target>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.invalidLanguageFilesFolder">
+        <source>Language folder not found. Please add a valid directory path.</source>
+        <target>Verzeichnis nicht gefunden. Bitte geben Sie den korrekten Pfad zu den Sprachdateien ein.</target>
       </trans-unit>
     </body>
   </file>

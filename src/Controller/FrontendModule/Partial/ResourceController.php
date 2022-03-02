@@ -23,6 +23,7 @@ use Haste\Util\Url;
 use Knp\Menu\Matcher\Matcher;
 use Knp\Menu\MenuFactory;
 use Knp\Menu\Renderer\ListRenderer;
+use Markocupic\ContaoTranslationBundle\Export\ExportFromDb;
 use Markocupic\ContaoTranslationBundle\Model\TransProjectModel;
 use Markocupic\ContaoTranslationBundle\Session\SessionConfig;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,19 +33,26 @@ class ResourceController
 {
     private Connection $connection;
     private TranslatorInterface $translator;
+    private ExportFromDb $exportFromDb;
     private UploadController $uploadController;
     private string $projectDir;
 
-    public function __construct(Connection $connection, TranslatorInterface $translator, UploadController $uploadController, string $projectDir)
+    public function __construct(Connection $connection, TranslatorInterface $translator, ExportFromDb $exportFromDb, UploadController $uploadController, string $projectDir)
     {
         $this->connection = $connection;
         $this->translator = $translator;
+        $this->exportFromDb = $exportFromDb;
         $this->uploadController = $uploadController;
         $this->projectDir = $projectDir;
     }
 
     public function generate(Template $template, ModuleModel $model, Request $request): string
     {
+        if ('export' === $request->query->get('do') && null !== ($project = TransProjectModel::findByPk($request->query->get('project')))) {
+            $repoImport = $request->query->has('repo_import');
+            $this->exportFromDb->export($project, $repoImport);
+        }
+
         if (null === ($project = TransProjectModel::findByPk($request->query->get('project'))) || !$request->query->has('act')) {
             $url = Url::removeQueryString($request->query->keys());
             Controller::redirect($url);
@@ -89,12 +97,16 @@ class ResourceController
 
                 $sessionBag = $request->getSession()->getBag(SessionConfig::BAG_NAME);
                 $href = '/trans_api/resource/import_resources_from_path/'.$project->id;
-                $href = Url::addQueryString('authToken='.$sessionBag->get('authToken'),$href);
-
-                $menu
-                    ->addChild($this->translator->trans('CT_TRANS.importResourcesFromPath', [$project->languageFilesFolder], 'contao_default'), ['uri' => $href])
+                $href = Url::addQueryString('authToken='.$sessionBag->get('authToken'), $href);
+                $menu->addChild($this->translator->trans('CT_TRANS.importResourcesFromPath', [$project->languageFilesFolder], 'contao_default'), ['uri' => $href])
                     ->setAttribute('data-ajax-href', $href)
                 ;
+
+                $href = Url::addQueryString('do=export&repo_import=true');
+                $menu->addChild($this->translator->trans('CT_TRANS.exportToRepository', [], 'contao_default'), ['uri' => $href]);
+
+                $href = Url::addQueryString('do=export');
+                $menu->addChild($this->translator->trans('CT_TRANS.downloadLangFiles', [], 'contao_default'), ['uri' => $href]);
 
                 $renderer = new ListRenderer(new Matcher());
                 $partial->import_resources_from_path_menu = $renderer->render($menu);
