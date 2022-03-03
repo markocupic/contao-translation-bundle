@@ -41,17 +41,17 @@
       <trans-unit id="CT_TRANS.downloadLangFiles">
         <source>Download language files</source>
       </trans-unit>
-      <trans-unit id="CT_TRANS.exportToRepository">
-        <source>Export files back to the repository</source>
+      <trans-unit id="CT_TRANS.exportLangFilesToPath">
+        <source>Export lang files to path</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.importLangFilesFromPath">
+        <source>Import lang files from path</source>
       </trans-unit>
       <trans-unit id="CT_TRANS.deleteProject">
         <source>Delete project</source>
       </trans-unit>
       <trans-unit id="CT_TRANS.languageResources">
         <source>Language resources</source>
-      </trans-unit>
-      <trans-unit id="CT_TRANS.importResourcesFromPath">
-        <source>Import resources from vendor directory</source>
       </trans-unit>
       <trans-unit id="CT_TRANS.translated">
         <source>translated</source>
@@ -61,6 +61,12 @@
       </trans-unit>
       <trans-unit id="CT_TRANS.languages">
         <source>Languages</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.pathTolanguageFilesFolder">
+        <source>Path to translation files</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.languageFilesFolderPathNotDefined">
+        <source>Path to translation files not set!</source>
       </trans-unit>
       <trans-unit id="CT_TRANS.confirmDeleteProject">
         <source>Successfully deleted project "%s".</source>

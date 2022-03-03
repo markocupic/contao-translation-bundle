@@ -23,7 +23,7 @@
         <target>Bitte geben Sie die Quellsprache an.</target>
       </trans-unit>
       <trans-unit id="tl_trans_project.languageFilesFolder.0">
-        <source>Contao language files folder</source>
+        <source>Path to bundles translation directory</source>
         <target>Pfad zu den Sprachdateien</target>
       </trans-unit>
       <trans-unit id="tl_trans_project.languageFilesFolder.1">

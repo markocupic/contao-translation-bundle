@@ -25,9 +25,9 @@ use Markocupic\ContaoTranslationBundle\Model\TransProjectModel;
 use Markocupic\ContaoTranslationBundle\Upload\FileUpload;
 use Ramsey\Uuid\Uuid;
 use Safe\Exceptions\FilesystemException;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use function Safe\mkdir;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UploadController
 {
@@ -42,10 +42,6 @@ class UploadController
         $this->fileUpload = $fileUpload;
         $this->translator = $translator;
         $this->projectDir = $projectDir;
-    }
-
-    public function __invoke(Request $request, ModuleModel $model, string $section, array $classes = null, PageModel $page = null): void
-    {
     }
 
     public function generate(Template $template, ModuleModel $model, Request $request): string

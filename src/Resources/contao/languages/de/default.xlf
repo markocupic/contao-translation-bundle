@@ -16,7 +16,7 @@
       </trans-unit>
       <trans-unit id="CT_TRANS.fileUploadSubmitLbl">
         <source>XLF-File upload</source>
-        <target>XLF-Dateien hochladen</target>
+        <target>Dateien hochladen</target>
       </trans-unit>
       <trans-unit id="CT_TRANS.edit">
         <source>Edit</source>
@@ -54,9 +54,13 @@
         <source>Download language files</source>
         <target>Sprachdateien herunterladen</target>
       </trans-unit>
-      <trans-unit id="CT_TRANS.exportToRepository">
-        <source>Export files back to the repository</source>
-        <target>Sprachdateien zurück ins Repo laden (vendor/vendorname/projectname/...)</target>
+      <trans-unit id="CT_TRANS.exportLangFilesToPath">
+        <source>Export lang files to path</source>
+        <target>Sprachdateien nach Pfad exportieren</target>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.importLangFilesFromPath">
+        <source>Import lang files from path</source>
+        <target>Sprachdateien von Pfad importieren</target>
       </trans-unit>
       <trans-unit id="CT_TRANS.deleteProject">
         <source>Delete project</source>
@@ -65,10 +69,6 @@
       <trans-unit id="CT_TRANS.languageResources">
         <source>Language resources</source>
         <target>Sprachdateien</target>
-      </trans-unit>
-      <trans-unit id="CT_TRANS.importResourcesFromPath">
-        <source>Import resources from vendor directory</source>
-        <target>Sprachdateien von Pfad importieren (vendor/vendorname/projectname/...)</target>
       </trans-unit>
       <trans-unit id="CT_TRANS.translated">
         <source>translated</source>
@@ -81,6 +81,14 @@
       <trans-unit id="CT_TRANS.languages">
         <source>Languages</source>
         <target>Sprachen</target>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.pathTolanguageFilesFolder">
+        <source>Path to translation files</source>
+        <target>Dateipfad zu Sprachdateien</target>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.languageFilesFolderPathNotDefined">
+        <source>Path to translation files not set!</source>
+        <target>Dateipfad zu Sprachdateien nicht definiert!</target>
       </trans-unit>
       <trans-unit id="CT_TRANS.confirmDeleteProject">
         <source>Successfully deleted project "%s".</source>
@@ -120,7 +128,7 @@
       </trans-unit>
       <trans-unit id="CT_TRANS.invalidLanguageFilesFolder">
         <source>Language folder not found. Please add a valid directory path.</source>
-        <target>Verzeichnis nicht gefunden. Bitte geben Sie den korrekten Pfad zu den Sprachdateien ein.</target>
+        <target>Sprachdateien Ordner ungültig. Bitte korrigieren sie Ihre Eingabe.</target>
       </trans-unit>
     </body>
   </file>

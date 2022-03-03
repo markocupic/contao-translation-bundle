@@ -33,13 +33,15 @@ $GLOBALS['TL_LANG']['CT_TRANS']['noTranslationFound'] = 'No translation found.';
 $GLOBALS['TL_LANG']['CT_TRANS']['createNewProject'] = 'Create new project';
 $GLOBALS['TL_LANG']['CT_TRANS']['sourceLanguage'] = 'Source language';
 $GLOBALS['TL_LANG']['CT_TRANS']['downloadLangFiles'] = 'Download language files';
-$GLOBALS['TL_LANG']['CT_TRANS']['exportToRepository'] = 'Export files back to the repository';
+$GLOBALS['TL_LANG']['CT_TRANS']['exportLangFilesToPath'] = 'Export lang files to path';
+$GLOBALS['TL_LANG']['CT_TRANS']['importLangFilesFromPath'] = 'Import lang files from path';
 $GLOBALS['TL_LANG']['CT_TRANS']['deleteProject'] = 'Delete project';
 $GLOBALS['TL_LANG']['CT_TRANS']['languageResources'] = 'Language resources';
-$GLOBALS['TL_LANG']['CT_TRANS']['importResourcesFromPath'] = 'Import resources from vendor directory';
 $GLOBALS['TL_LANG']['CT_TRANS']['translated'] = 'translated';
 $GLOBALS['TL_LANG']['CT_TRANS']['resources'] = 'Resources';
 $GLOBALS['TL_LANG']['CT_TRANS']['languages'] = 'Languages';
+$GLOBALS['TL_LANG']['CT_TRANS']['pathTolanguageFilesFolder'] = 'Path to translation files';
+$GLOBALS['TL_LANG']['CT_TRANS']['languageFilesFolderPathNotDefined'] = 'Path to translation files not set!';
 
 /*
  * Messages

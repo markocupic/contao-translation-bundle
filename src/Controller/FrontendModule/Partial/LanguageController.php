@@ -17,7 +17,6 @@ namespace Markocupic\ContaoTranslationBundle\Controller\FrontendModule\Partial;
 use Contao\Controller;
 use Contao\FrontendTemplate;
 use Contao\ModuleModel;
-use Contao\PageModel;
 use Contao\Template;
 use Doctrine\DBAL\Connection;
 use Haste\Form\Form;
@@ -42,10 +41,6 @@ class LanguageController
         $this->connection = $connection;
         $this->translator = $translator;
         $this->allowedLocales = $allowedLocales;
-    }
-
-    public function __invoke(Request $request, ModuleModel $model, string $section, array $classes = null, PageModel $page = null): void
-    {
     }
 
     public function generate(Template $template, ModuleModel $model, Request $request): string
@@ -81,10 +76,8 @@ class LanguageController
 
             if (null !== ($resources = TransResourceModel::findByPid($project->id))) {
                 while ($resources->next()) {
-
-
                     $menu->addChild(
-                        $resources->name. ' ' . $this->getStrTranslatedPrcnt($resources->current(), $row['language']),
+                        $resources->name.' '.$this->getPercentageTranslated($resources->current(), $row['language']),
                         [
                             'uri' => Url::addQueryString(
                                 sprintf(
@@ -135,12 +128,9 @@ class LanguageController
         if ($form->validate()) {
             $value = $form->fetch('locales');
 
-            if (
-                !$this->connection->fetchOne(
-                    'SELECT * FROM tl_trans_language WHERE language = ? AND pid = ?',
-                    [$value, $project->id],
-                )
-            ) {
+            $result = $this->connection->fetchOne('SELECT * FROM tl_trans_language WHERE language = ? AND pid = ?', [$value, $project->id]);
+
+            if (!$result) {
                 $set = [
                     'pid' => $project->id,
                     'tstamp' => time(),
@@ -156,20 +146,21 @@ class LanguageController
         return $form->generate();
     }
 
-    private function getStrTranslatedPrcnt(TransResourceModel $resource, string $language): string
+    private function getPercentageTranslated(TransResourceModel $resource, string $language): string
     {
-        $untranslated =  TransTranslationModel::countUntranslatedByResourceAndLanguage($resource, $language);
-        $total =  TransTranslationModel::countTranslatedByResourceAndLanguage($resource, $resource->getRelated('pid')->sourceLanguage);
+        $untranslated = TransTranslationModel::countUntranslatedByResourceAndLanguage($resource, $language);
+        $total = TransTranslationModel::countTranslatedByResourceAndLanguage($resource, $resource->getRelated('pid')->sourceLanguage);
 
         $translated = '-';
+
         if ($total > 0) {
-            $translated =  (string) ceil(100 - ($untranslated / $total * 100));
+            $translated = (string) ceil(100 - ($untranslated / $total * 100));
         }
 
         return sprintf(
-                '(%s: %s %%)',
-                $this->translator->trans('CT_TRANS.translated', [], 'contao_default'),
-                $translated,
-            );
+            '(%s: %s %%)',
+            $this->translator->trans('CT_TRANS.translated', [], 'contao_default'),
+            $translated,
+        );
     }
 }

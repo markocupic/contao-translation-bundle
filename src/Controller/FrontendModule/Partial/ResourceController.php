@@ -92,18 +92,18 @@ class ResourceController
         if (!empty($project->languageFilesFolder)) {
             if (is_dir($this->projectDir.'/'.$project->languageFilesFolder)) {
                 $factory = new MenuFactory();
-                $menu = $factory->createItem('importResourcesFromPathMenu');
+                $menu = $factory->createItem('importLangFilesFromPathMenu');
                 $menu->setChildrenAttribute('class', 'trans-menu');
 
                 $sessionBag = $request->getSession()->getBag(SessionConfig::BAG_NAME);
                 $href = '/trans_api/resource/import_resources_from_path/'.$project->id;
                 $href = Url::addQueryString('authToken='.$sessionBag->get('authToken'), $href);
-                $menu->addChild($this->translator->trans('CT_TRANS.importResourcesFromPath', [$project->languageFilesFolder], 'contao_default'), ['uri' => $href])
+                $menu->addChild($this->translator->trans('CT_TRANS.importLangFilesFromPath', [$project->languageFilesFolder], 'contao_default'), ['uri' => $href])
                     ->setAttribute('data-ajax-href', $href)
                 ;
 
                 $href = Url::addQueryString('do=export&repo_import=true');
-                $menu->addChild($this->translator->trans('CT_TRANS.exportToRepository', [], 'contao_default'), ['uri' => $href]);
+                $menu->addChild($this->translator->trans('CT_TRANS.exportLangFilesToPath', [], 'contao_default'), ['uri' => $href]);
 
                 $href = Url::addQueryString('do=export');
                 $menu->addChild($this->translator->trans('CT_TRANS.downloadLangFiles', [], 'contao_default'), ['uri' => $href]);

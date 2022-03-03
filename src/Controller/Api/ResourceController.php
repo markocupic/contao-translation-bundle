@@ -101,7 +101,7 @@ class ResourceController
      *
      * @throws \Exception
      */
-    public function importResourcesFromPath(int $projectId): JsonResponse
+    public function importLangFilesFromPath(int $projectId): JsonResponse
     {
         // Throws an exception if client is not authorized
         $this->isAuthorized($this->requestStack);

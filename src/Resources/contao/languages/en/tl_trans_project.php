@@ -22,11 +22,10 @@ $GLOBALS['TL_LANG']['tl_trans_project']['default_legend'] = 'Basic settings';
  */
 $GLOBALS['TL_LANG']['tl_trans_project']['name'] = ['Project name', 'Add the project name.'];
 $GLOBALS['TL_LANG']['tl_trans_project']['sourceLanguage'] = ['Source language', 'Please select the source language.'];
-$GLOBALS['TL_LANG']['tl_trans_project']['languageFilesFolder'] = ['Contao language files folder', 'Add the path to the language files folder.'];
+$GLOBALS['TL_LANG']['tl_trans_project']['languageFilesFolder'] = ['Path to bundles translation directory', 'Add the path to the language files folder.'];
 
-/**
+/*
  * Operations
  */
 $GLOBALS['TL_LANG']['tl_trans_project']['editRes'] = 'Edit resource ID %s';
 $GLOBALS['TL_LANG']['tl_trans_project']['editLang'] = 'Edit language ID %s';
-

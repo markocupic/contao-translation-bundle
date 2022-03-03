@@ -18,7 +18,7 @@
         <source>Please select the source language.</source>
       </trans-unit>
       <trans-unit id="tl_trans_project.languageFilesFolder.0">
-        <source>Contao language files folder</source>
+        <source>Path to bundles translation directory</source>
       </trans-unit>
       <trans-unit id="tl_trans_project.languageFilesFolder.1">
         <source>Add the path to the language files folder.</source>
