@@ -6,7 +6,7 @@ declare(strict_types=1);
  * This file is part of Contao Translation Bundle.
  *
  * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
- * @license GPL-3.0-or-later
+ * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
  * @link https://github.com/markocupic/contao-translation-bundle
@@ -134,18 +134,45 @@ class XliffWriter
         $translationNode = $dom->createElement('trans-unit');
         $translationNode->appendChild(new \DOMAttr('id', $translationId));
 
+        // Add source
         $source = $dom->createElement('source');
-        $source->textContent = $valueSource;
+
+        if ($this->hasNotAllowedChars($valueSource)) {
+            $elementCdata = $dom->createCDATASection($valueSource);
+            $source->appendChild($elementCdata);
+        } else {
+            $source->textContent = $valueSource;
+        }
+
         $translationNode->appendChild($source);
 
+        // Add target
         if ($this->sourceLanguage !== $this->targetLanguage) {
             if ($valueTarget && '' !== $valueTarget) {
                 $target = $dom->createElement('target');
-                $target->textContent = $valueTarget;
+
+                if ($this->hasNotAllowedChars($valueTarget)) {
+                    $elementCdata = $dom->createCDATASection($valueTarget);
+                    $target->appendChild($elementCdata);
+                } else {
+                    $target->textContent = $valueTarget;
+                }
+
                 $translationNode->appendChild($target);
             }
         }
 
         return $translationNode;
+    }
+
+    protected function hasNotAllowedChars(string $strString): bool
+    {
+        $hasNotAllowedChars = false;
+
+        if (false !== strpos($strString, '<') || false !== strpos($strString, '>')) {
+            $hasNotAllowedChars = true;
+        }
+
+        return $hasNotAllowedChars;
     }
 }

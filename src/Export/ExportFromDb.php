@@ -6,7 +6,7 @@ declare(strict_types=1);
  * This file is part of Contao Translation Bundle.
  *
  * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
- * @license GPL-3.0-or-later
+ * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
  * @link https://github.com/markocupic/contao-translation-bundle
@@ -106,8 +106,7 @@ class ExportFromDb
                     $arrTargetTranslations[$row['translationId']] = $row['translation'];
                 }
 
-                if(empty($arrTargetTranslations))
-                {
+                if (empty($arrTargetTranslations)) {
                     $this->message->addError(
                         $this->translator->trans('CT_TRANS.errorRepositoryExportDueToEmptyFile', [$language, $resource->name], 'contao_default')
                     );

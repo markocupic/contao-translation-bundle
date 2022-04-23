@@ -6,7 +6,7 @@ declare(strict_types=1);
  * This file is part of Contao Translation Bundle.
  *
  * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
- * @license GPL-3.0-or-later
+ * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
  * @link https://github.com/markocupic/contao-translation-bundle
@@ -29,9 +29,7 @@ use Markocupic\ContaoTranslationBundle\Controller\FrontendModule\Partial\Transla
 use Markocupic\ContaoTranslationBundle\Controller\FrontendModule\Partial\UploadController;
 use Markocupic\ContaoTranslationBundle\Message\Message;
 use Markocupic\ContaoTranslationBundle\Session\SessionConfig;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 
@@ -43,6 +41,7 @@ use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 class TranslationModuleController extends AbstractFrontendModuleController
 {
     public const TYPE = 'translation_module';
+    protected ?PageModel $page = null;
     private ScopeMatcher $scopeMatcher;
     private Message $message;
     private MenuController $menuController;
@@ -52,7 +51,6 @@ class TranslationModuleController extends AbstractFrontendModuleController
     private TranslateController $translateController;
     private CreateNewProjectController $createNewProjectController;
     private ProjectController $projectController;
-    protected ?PageModel $page = null;
     private ?string $authToken = null;
 
     public function __construct(ScopeMatcher $scopeMatcher, Message $message, MenuController $menuController, ResourceController $resourceController, UploadController $uploadController, LanguageController $languageController, TranslateController $translateController, CreateNewProjectController $createNewProjectController, ProjectController $projectController)
@@ -83,6 +81,7 @@ class TranslationModuleController extends AbstractFrontendModuleController
 
             /** @var AttributeBagInterface $sessionBag */
             $sessionBag = $request->getSession()->getBag(SessionConfig::BAG_NAME);
+
             if ($sessionBag->has('authToken')) {
                 $this->authToken = $sessionBag->get('authToken');
             } else {

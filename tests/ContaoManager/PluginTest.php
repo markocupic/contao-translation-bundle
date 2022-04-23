@@ -2,7 +2,7 @@
 
 /*
  * This file is part of Contao Translation.
- * 
+ *
  * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
@@ -10,6 +10,16 @@
  * @link https://github.com/markocupic/contao-translation-bundle
  */
 declare(strict_types=1);
+
+/*
+ * This file is part of Contao Translation Bundle.
+ *
+ * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * @license MIT
+ * For the full copyright and license information,
+ * please view the LICENSE file that was distributed with this source code.
+ * @link https://github.com/markocupic/contao-translation-bundle
+ */
 
 namespace Markocupic\ContaoTranslationBundle\Tests\ContaoManager;
 
@@ -21,14 +31,12 @@ use Markocupic\ContaoTranslationBundle\ContaoManager\Plugin;
 use Markocupic\ContaoTranslationBundle\MarkocupicContaoTranslationBundle;
 
 /**
- * Class PluginTest
- *
- * @package Markocupic\ContaoTranslationBundle\Tests\ContaoManager
+ * Class PluginTest.
  */
 class PluginTest extends ContaoTestCase
 {
     /**
-     * Test Contao manager plugin class instantiation
+     * Test Contao manager plugin class instantiation.
      */
     public function testInstantiation(): void
     {
@@ -36,7 +44,7 @@ class PluginTest extends ContaoTestCase
     }
 
     /**
-     * Test returns the bundles
+     * Test returns the bundles.
      */
     public function testGetBundles(): void
     {
@@ -50,5 +58,4 @@ class PluginTest extends ContaoTestCase
         $this->assertSame(MarkocupicContaoTranslationBundle::class, $bundles[0]->getName());
         $this->assertSame([ContaoCoreBundle::class], $bundles[0]->getLoadAfter());
     }
-
 }
