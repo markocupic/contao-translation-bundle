@@ -7,7 +7,7 @@ für Programmierer mit kleinem Budget die Möglichkeit **Übersetzungsdateien im
 in einer Contao Installation zu pflegen. Dabei macht es Sinn diese Erweiterung in Kombination mit
 [markocupic/contao-php2xliff](https://github.com/markocupic/contao-php2xliff) zu verwenden.
 
-| Flag                                                     | Affect                                                   |
+| importieren & exportieren                                | Sprachdateien bearbeiten                                 |
 |----------------------------------------------------------|----------------------------------------------------------|
 | ![Übersetzungsmodul](docs/translation_tool_resource.png) | ![Übersetzungsmodul](docs/translation_tool_resource.png) |
 
