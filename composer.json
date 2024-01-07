@@ -5,7 +5,7 @@
         "contao",
         "bundle",
         "translation",
-        "tag 4"
+        "xliff"
     ],
     "type": "contao-bundle",
     "license": "MIT",
@@ -24,7 +24,7 @@
     "require": {
         "php": "^8.1",
         "contao/core-bundle": "^4.13 || ^5.0",
-        "codefog/contao-haste": "^4.20",
+        "codefog/contao-haste": "^5.1",
         "ramsey/uuid": "*",
         "markocupic/zip-bundle": "^1.0"
     },
@@ -38,16 +38,7 @@
     "autoload": {
         "psr-4": {
             "Markocupic\\ContaoTranslationBundle\\": "src/"
-        },
-        "classmap": [
-            "src/Resources/contao"
-        ],
-        "exclude-from-classmap": [
-            "src/Resources/contao/config",
-            "src/Resources/contao/dca",
-            "src/Resources/contao/languages",
-            "src/Resources/contao/templates"
-        ]
+        }
     },
     "extra": {
         "contao-manager-plugin": "Markocupic\\ContaoTranslationBundle\\ContaoManager\\Plugin"

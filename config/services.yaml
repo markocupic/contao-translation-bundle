@@ -1,0 +1,40 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+        bind:
+            $projectDir: '%kernel.project_dir%'
+            $allowedLocales: '%markocupic_contao_translation.allowed_locales%'
+            $contaoCsrfTokenName: '%contao.csrf_token_name%'
+
+    Markocupic\ContaoTranslationBundle\:
+        resource: ../src/
+        exclude: ../src/{DependencyInjection,Session,Model}
+
+    # Do not handle this class as a service
+    Markocupic\ContaoTranslationBundle\Export\XliffWriter:
+        autoconfigure: false
+        autowire: false
+
+    # Do not handle this class as a service
+    Markocupic\ContaoTranslationBundle\Import\ParseXml:
+        autoconfigure: false
+        autowire: false
+
+    # Add a session bag (be sure to have excluded the src/Session directory)
+    markocupic_contao_translation.session.factory:
+        class: Markocupic\ContaoTranslationBundle\Session\SessionFactory
+        decorates: session.factory
+        arguments:
+            - '@markocupic_contao_translation.session.factory.inner'
+            - '@markocupic_contao_translation.session.attribute.array_attribute_bag'
+
+    markocupic_contao_translation.session.attribute.array_attribute_bag:
+        class: Markocupic\ContaoTranslationBundle\Session\Attribute\ArrayAttributeBag
+        arguments:
+            - _markocupic_contao_translation_attributes
+        calls:
+            - [ setName, [ markocupic_contao_translation ] ]
+
+

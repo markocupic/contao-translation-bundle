@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace Markocupic\ContaoTranslationBundle\Controller\FrontendModule;
 
 use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsFrontendModule;
 use Contao\CoreBundle\Routing\ScopeMatcher;
-use Contao\CoreBundle\ServiceAnnotation\FrontendModule;
 use Contao\ModuleModel;
 use Contao\PageModel;
 use Contao\Template;
@@ -33,37 +33,24 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 
-/**
- * Class TranslationModuleController.
- *
- * @FrontendModule(TranslationModuleController::TYPE, category="translation", template="mod_translation_module")
- */
+#[AsFrontendModule(TranslationModuleController::TYPE, category: 'translation', template: 'mod_translation_module')]
 class TranslationModuleController extends AbstractFrontendModuleController
 {
     public const TYPE = 'translation_module';
-    protected ?PageModel $page = null;
-    private ScopeMatcher $scopeMatcher;
-    private Message $message;
-    private MenuController $menuController;
-    private ResourceController $resourceController;
-    private UploadController $uploadController;
-    private LanguageController $languageController;
-    private TranslateController $translateController;
-    private CreateNewProjectController $createNewProjectController;
-    private ProjectController $projectController;
-    private ?string $authToken = null;
+    protected PageModel|null $page = null;
+    private string|null $authToken = null;
 
-    public function __construct(ScopeMatcher $scopeMatcher, Message $message, MenuController $menuController, ResourceController $resourceController, UploadController $uploadController, LanguageController $languageController, TranslateController $translateController, CreateNewProjectController $createNewProjectController, ProjectController $projectController)
-    {
-        $this->scopeMatcher = $scopeMatcher;
-        $this->message = $message;
-        $this->menuController = $menuController;
-        $this->resourceController = $resourceController;
-        $this->uploadController = $uploadController;
-        $this->languageController = $languageController;
-        $this->translateController = $translateController;
-        $this->createNewProjectController = $createNewProjectController;
-        $this->projectController = $projectController;
+    public function __construct(
+        private readonly CreateNewProjectController $createNewProjectController,
+        private readonly LanguageController $languageController,
+        private readonly MenuController $menuController,
+        private readonly Message $message,
+        private readonly ProjectController $projectController,
+        private readonly ResourceController $resourceController,
+        private readonly ScopeMatcher $scopeMatcher,
+        private readonly TranslateController $translateController,
+        private readonly UploadController $uploadController,
+    ) {
     }
 
     /**
@@ -96,7 +83,7 @@ class TranslationModuleController extends AbstractFrontendModuleController
     /**
      * Generate the module.
      */
-    protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
+    protected function getResponse(Template $template, ModuleModel $model, Request $request): Response
     {
         $template->auth_token = $this->authToken;
         $template->content = '';

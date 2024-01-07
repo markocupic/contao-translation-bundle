@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -14,12 +14,12 @@ declare(strict_types=1);
 
 namespace Markocupic\ContaoTranslationBundle\Controller\FrontendModule\Partial;
 
+use Codefog\HasteBundle\UrlParser;
 use Contao\Controller;
 use Contao\FrontendTemplate;
 use Contao\ModuleModel;
 use Contao\Template;
 use Doctrine\DBAL\Connection;
-use Haste\Util\Url;
 use Knp\Menu\Matcher\Matcher;
 use Knp\Menu\MenuFactory;
 use Knp\Menu\Renderer\ListRenderer;
@@ -31,19 +31,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ResourceController
 {
-    private Connection $connection;
-    private TranslatorInterface $translator;
-    private ExportFromDb $exportFromDb;
-    private UploadController $uploadController;
-    private string $projectDir;
-
-    public function __construct(Connection $connection, TranslatorInterface $translator, ExportFromDb $exportFromDb, UploadController $uploadController, string $projectDir)
-    {
-        $this->connection = $connection;
-        $this->translator = $translator;
-        $this->exportFromDb = $exportFromDb;
-        $this->uploadController = $uploadController;
-        $this->projectDir = $projectDir;
+    public function __construct(
+        private readonly Connection $connection,
+        private readonly ExportFromDb $exportFromDb,
+        private readonly TranslatorInterface $translator,
+        private readonly UploadController $uploadController,
+        private readonly UrlParser $urlParser,
+        private readonly string $projectDir,
+    ) {
     }
 
     public function generate(Template $template, ModuleModel $model, Request $request): string
@@ -54,7 +49,7 @@ class ResourceController
         }
 
         if (null === ($project = TransProjectModel::findByPk($request->query->get('project'))) || !$request->query->has('act')) {
-            $url = Url::removeQueryString($request->query->keys());
+            $url = $this->urlParser->removeQueryString($request->query->keys());
             Controller::redirect($url);
         }
 
@@ -97,15 +92,19 @@ class ResourceController
 
                 $sessionBag = $request->getSession()->getBag(SessionConfig::BAG_NAME);
                 $href = '/trans_api/resource/import_resources_from_path/'.$project->id;
-                $href = Url::addQueryString('authToken='.$sessionBag->get('authToken'), $href);
-                $menu->addChild($this->translator->trans('CT_TRANS.importLangFilesFromPath', [$project->languageFilesFolder], 'contao_default'), ['uri' => $href])
+                $href = $this->urlParser->addQueryString('authToken='.$sessionBag->get('authToken'), $href);
+                $menu
+                    ->addChild(
+                        $this->translator->trans('CT_TRANS.importLangFilesFromPath', [$project->languageFilesFolder], 'contao_default'),
+                        ['uri' => $href]
+                    )
                     ->setAttribute('data-ajax-href', $href)
                 ;
 
-                $href = Url::addQueryString('do=export&repo_import=true');
+                $href = $this->urlParser->addQueryString('do=export&repo_import=true');
                 $menu->addChild($this->translator->trans('CT_TRANS.exportLangFilesToPath', [], 'contao_default'), ['uri' => $href]);
 
-                $href = Url::addQueryString('do=export');
+                $href = $this->urlParser->addQueryString('do=export');
                 $menu->addChild($this->translator->trans('CT_TRANS.downloadLangFiles', [], 'contao_default'), ['uri' => $href]);
 
                 $renderer = new ListRenderer(new Matcher());

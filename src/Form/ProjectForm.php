@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -14,22 +14,17 @@ declare(strict_types=1);
 
 namespace Markocupic\ContaoTranslationBundle\Form;
 
-use Haste\Form\Form;
+use Codefog\HasteBundle\Form\Form;
 use Markocupic\ContaoTranslationBundle\Model\TransProjectModel;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProjectForm
 {
-    private RequestStack $requestStack;
-    private TranslatorInterface $translator;
-    private array $allowedLocales;
-
-    public function __construct(RequestStack $requestStack, TranslatorInterface $translator, array $allowedLocales)
-    {
-        $this->requestStack = $requestStack;
-        $this->translator = $translator;
-        $this->allowedLocales = $allowedLocales;
+    public function __construct(
+        private readonly RequestStack $requestStack,
+        private readonly TranslatorInterface $translator,
+    ) {
     }
 
     public function getForm(TransProjectModel $model): Form
@@ -42,7 +37,7 @@ class ProjectForm
             static fn ($objHaste) => $request->request->get('FORM_SUBMIT') === $objHaste->getFormId()
         );
 
-        $form->bindModel($model);
+        $form->setBoundModel($model);
 
         $form->addFieldsFromDca(
             'tl_trans_project',

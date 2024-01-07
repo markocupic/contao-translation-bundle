@@ -1,4 +1,0 @@
-# config/routes.yml
-markocupic_contao_translation.controller:
-    resource: ../../../src/Controller
-    type: annotation

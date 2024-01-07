@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.1">
+  <file datatype="php" original="vendor/markocupic/contao-translation-bundle/contao/languages/en/tl_trans_file.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="tl_trans_resource.default_legend">
+        <source>Basic settings</source>
+        <target>Basis Einstellungen</target>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.name.0">
+        <source>File name</source>
+        <target>Dateiname</target>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.name.1">
+        <source>Please add a file name.</source>
+        <target>Bitte geben Sie den Dateinamen ein.</target>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.dataType.0">
+        <source>Data type</source>
+        <target>Datentyp</target>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.dataType.1">
+        <source>Please select the data type.</source>
+        <target>Bitte geben Sie den Datentyp ein.</target>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.original.0">
+        <source>Original</source>
+        <target>Pfad zur Originaldatei.</target>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.original.1">
+        <source>Please add the original file path.</source>
+        <target>Bitte geben Sie den Pfad zur Originaldatei ein.</target>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.sourceLanguage.0">
+        <source>Source language</source>
+        <target>Quellsprache</target>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.sourceLanguage.1">
+        <source>Please add the source language.</source>
+        <target>Bitte geben Sie die Quellsprache an.</target>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.targetLanguage.0">
+        <source>Target language</source>
+        <target>Zielsprache</target>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.targetLanguage.1">
+        <source>Please add the target language.</source>
+        <target>Bitte geben Sie die Zielsprache an.</target>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.firstoption">
+        <source>Erste Option</source>
+        <target>sdfdsdf</target>
+      </trans-unit>
+      <trans-unit id="tl_trans_resource.secondoption">
+        <source>Zweite Option</source>
+        <target>sdfsdf</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

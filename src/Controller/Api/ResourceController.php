@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -30,23 +30,15 @@ class ResourceController
 {
     use AuthorizationTrait;
 
-    private ContaoFramework $contaoFramework;
-    private RequestStack $requestStack;
-    private Connection $connection;
-    private DbImport $dbImport;
-    private TranslatorInterface $translator;
-    private Message $message;
-    private string $projectDir;
-
-    public function __construct(ContaoFramework $contaoFramework, RequestStack $requestStack, Connection $connection, DbImport $dbImport, TranslatorInterface $translator, Message $message, string $projectDir)
-    {
-        $this->contaoFramework = $contaoFramework;
-        $this->requestStack = $requestStack;
-        $this->connection = $connection;
-        $this->dbImport = $dbImport;
-        $this->translator = $translator;
-        $this->message = $message;
-        $this->projectDir = $projectDir;
+    public function __construct(
+        private readonly Connection $connection,
+        private readonly ContaoFramework $contaoFramework,
+        private readonly DbImport $dbImport,
+        private readonly Message $message,
+        private readonly RequestStack $requestStack,
+        private readonly TranslatorInterface $translator,
+        private readonly string $projectDir,
+    ) {
     }
 
     /**

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -14,33 +14,28 @@ declare(strict_types=1);
 
 namespace Markocupic\ContaoTranslationBundle\Controller\FrontendModule\Partial;
 
+use Codefog\HasteBundle\Form\Form;
 use Contao\Controller;
 use Contao\FrontendTemplate;
 use Contao\ModuleModel;
 use Contao\Template;
-use Haste\Form\Form;
 use Markocupic\ContaoTranslationBundle\Import\DbImport;
 use Markocupic\ContaoTranslationBundle\Model\TransProjectModel;
 use Markocupic\ContaoTranslationBundle\Upload\FileUpload;
 use Ramsey\Uuid\Uuid;
 use Safe\Exceptions\FilesystemException;
-use function Safe\mkdir;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use function Safe\mkdir;
 
 class UploadController
 {
-    private DbImport $dbImport;
-    private FileUpload $fileUpload;
-    private TranslatorInterface $translator;
-    private string $projectDir;
-
-    public function __construct(DbImport $dbImport, FileUpload $fileUpload, TranslatorInterface $translator, string $projectDir)
-    {
-        $this->dbImport = $dbImport;
-        $this->fileUpload = $fileUpload;
-        $this->translator = $translator;
-        $this->projectDir = $projectDir;
+    public function __construct(
+        private readonly DbImport $dbImport,
+        private readonly FileUpload $fileUpload,
+        private readonly TranslatorInterface $translator,
+        private readonly string $projectDir,
+    ) {
     }
 
     public function generate(Template $template, ModuleModel $model, Request $request): string

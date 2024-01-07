@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -26,15 +26,11 @@ class TranslationTableController
 {
     use AuthorizationTrait;
 
-    private ContaoFramework $contaoFramework;
-    private RequestStack $requestStack;
-    private TranslationTable $translationTable;
-
-    public function __construct(ContaoFramework $contaoFramework, RequestStack $requestStack, TranslationTable $translationTable)
-    {
-        $this->contaoFramework = $contaoFramework;
-        $this->requestStack = $requestStack;
-        $this->translationTable = $translationTable;
+    public function __construct(
+        private readonly ContaoFramework $contaoFramework,
+        private readonly RequestStack $requestStack,
+        private readonly TranslationTable $translationTable,
+    ) {
     }
 
     /**

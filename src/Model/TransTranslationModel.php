@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -61,7 +61,7 @@ class TransTranslationModel extends Model
         return (int) $objDb->total;
     }
 
-    public static function findByResourceAndLanguage(TransResourceModel $resource, string $language): ?Collection
+    public static function findByResourceAndLanguage(TransResourceModel $resource, string $language): Collection|null
     {
         return self::findBy(
             ['tl_trans_translation.translation != ?', 'tl_trans_translation.language = ?', 'tl_trans_translation.pid = ?'],

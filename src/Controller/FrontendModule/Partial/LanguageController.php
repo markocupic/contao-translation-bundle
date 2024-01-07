@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -14,13 +14,13 @@ declare(strict_types=1);
 
 namespace Markocupic\ContaoTranslationBundle\Controller\FrontendModule\Partial;
 
+use Codefog\HasteBundle\Form\Form;
+use Codefog\HasteBundle\UrlParser;
 use Contao\Controller;
 use Contao\FrontendTemplate;
 use Contao\ModuleModel;
 use Contao\Template;
 use Doctrine\DBAL\Connection;
-use Haste\Form\Form;
-use Haste\Util\Url;
 use Knp\Menu\Matcher\Matcher;
 use Knp\Menu\MenuFactory;
 use Knp\Menu\Renderer\ListRenderer;
@@ -32,15 +32,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LanguageController
 {
-    private Connection $connection;
-    private TranslatorInterface $translator;
-    private array $allowedLocales;
-
-    public function __construct(Connection $connection, TranslatorInterface $translator, array $allowedLocales)
-    {
-        $this->connection = $connection;
-        $this->translator = $translator;
-        $this->allowedLocales = $allowedLocales;
+    public function __construct(
+        private readonly Connection $connection,
+        private readonly TranslatorInterface $translator,
+        private readonly UrlParser $urlParser,
+        private readonly array $allowedLocales,
+    ) {
     }
 
     public function generate(Template $template, ModuleModel $model, Request $request): string
@@ -58,6 +55,8 @@ class LanguageController
             'SELECT * FROM tl_trans_language WHERE pid = ?',
             [$project->id]
         );
+
+        $rows = [];
 
         while (false !== ($row = $stmt->fetchAssociative())) {
             $row['untranslated'] = TransTranslationModel::countUntranslatedByProjectAndLanguage($project, $row['language']);
@@ -79,7 +78,7 @@ class LanguageController
                     $menu->addChild(
                         $resources->name.' '.$this->getPercentageTranslated($resources->current(), $row['language']),
                         [
-                            'uri' => Url::addQueryString(
+                            'uri' => $this->urlParser->addQueryString(
                                 sprintf(
                                     'act=translate&language=%s&resource=%s',
                                     $row['language'],

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -14,39 +14,36 @@ declare(strict_types=1);
 
 namespace Markocupic\ContaoTranslationBundle\Export;
 
+use Codefog\HasteBundle\UrlParser;
 use Contao\Controller;
 use Contao\CoreBundle\Exception\ResponseException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Exception;
-use Haste\Util\Url;
 use Markocupic\ContaoTranslationBundle\Message\Message;
 use Markocupic\ContaoTranslationBundle\Model\TransLanguageModel;
 use Markocupic\ContaoTranslationBundle\Model\TransProjectModel;
 use Markocupic\ContaoTranslationBundle\Model\TransResourceModel;
 use Markocupic\ZipBundle\Zip\Zip;
-use Patchwork\Utf8;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Mime\MimeTypes;
+use Symfony\Component\String\UnicodeString;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ExportFromDb
 {
-    private Connection $connection;
-    private TranslatorInterface $translator;
-    private Message $message;
-    private string $projectDir;
     private array $resources = [];
     private array $languages = [];
 
-    public function __construct(Connection $connection, TranslatorInterface $translator, Message $message, string $projectDir)
-    {
-        $this->connection = $connection;
-        $this->translator = $translator;
-        $this->message = $message;
-        $this->projectDir = $projectDir;
+    public function __construct(
+        private readonly Connection $connection,
+        private readonly Message $message,
+        private readonly TranslatorInterface $translator,
+        private readonly UrlParser $urlParser,
+        private readonly string $projectDir,
+    ) {
     }
 
     /**
@@ -141,7 +138,7 @@ class ExportFromDb
         if ($repoImport) {
             $fs = new Filesystem();
             $fs->mirror($tempFolder, $this->projectDir.'/'.$project->languageFilesFolder);
-            $url = Url::removeQueryString(['do', 'repo_import']);
+            $url = $this->urlParser->removeQueryString(['do', 'repo_import']);
             Controller::redirect($url);
         }
 
@@ -166,9 +163,8 @@ class ExportFromDb
         $response->setContentDisposition(
             $inline ? ResponseHeaderBag::DISPOSITION_INLINE : ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             $filename,
-            Utf8::toAscii(basename($filePath))
+            (new UnicodeString(basename($filePath)))->ascii()->toString()
         );
-
         $mimeTypes = new MimeTypes();
         $mimeType = $mimeTypes->guessMimeType($filePath);
 

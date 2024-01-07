@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -19,11 +19,11 @@ use function Safe\file_get_contents;
 
 class ParseXml
 {
-    private ?string $name = null;
-    private ?string $dataType = null;
-    private ?string $original = null;
-    private ?string $sourceLanguage = null;
-    private ?string $targetLanguage = null;
+    private string|null $name = null;
+    private string|null $dataType = null;
+    private string|null $original = null;
+    private string|null $sourceLanguage = null;
+    private string|null $targetLanguage = null;
     private array $translations = [];
     private bool $isSourceFile = false;
 
@@ -52,27 +52,27 @@ class ParseXml
         return $this;
     }
 
-    public function getName(): ?string
+    public function getName(): string|null
     {
         return $this->name;
     }
 
-    public function getDataType(): ?string
+    public function getDataType(): string|null
     {
         return $this->dataType;
     }
 
-    public function getOriginal(): ?string
+    public function getOriginal(): string|null
     {
         return $this->original;
     }
 
-    public function getSourceLanguage(): ?string
+    public function getSourceLanguage(): string|null
     {
         return $this->sourceLanguage;
     }
 
-    public function getTargetLanguage(): ?string
+    public function getTargetLanguage(): string|null
     {
         return $this->targetLanguage;
     }
@@ -97,7 +97,7 @@ class ParseXml
         $this->translations = [];
     }
 
-    private function getAttribute(\SimpleXMLElement $node, string $attrName): ?string
+    private function getAttribute(\SimpleXMLElement $node, string $attrName): string|null
     {
         foreach ($node->attributes() as $k => $v) {
             if ($k === $attrName) {

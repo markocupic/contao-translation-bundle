@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -28,21 +28,14 @@ class ProjectController
 {
     use AuthorizationTrait;
 
-    private ContaoFramework $contaoFramework;
-    private RequestStack $requestStack;
-    private Connection $connection;
-    private ExportFromDb $exportFromDb;
-    private Message $message;
-    private TranslatorInterface $translator;
-
-    public function __construct(ContaoFramework $contaoFramework, RequestStack $requestStack, Connection $connection, ExportFromDb $exportFromDb, Message $message, TranslatorInterface $translator)
-    {
-        $this->contaoFramework = $contaoFramework;
-        $this->requestStack = $requestStack;
-        $this->connection = $connection;
-        $this->exportFromDb = $exportFromDb;
-        $this->message = $message;
-        $this->translator = $translator;
+    public function __construct(
+        private readonly Connection $connection,
+        private readonly ContaoFramework $contaoFramework,
+        private readonly ExportFromDb $exportFromDb,
+        private readonly Message $message,
+        private readonly RequestStack $requestStack,
+        private readonly TranslatorInterface $translator,
+    ) {
     }
 
     /**

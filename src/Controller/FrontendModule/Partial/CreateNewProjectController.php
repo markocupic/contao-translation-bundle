@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -14,34 +14,32 @@ declare(strict_types=1);
 
 namespace Markocupic\ContaoTranslationBundle\Controller\FrontendModule\Partial;
 
+use Codefog\HasteBundle\UrlParser;
 use Contao\Controller;
 use Contao\FrontendTemplate;
 use Contao\ModuleModel;
 use Contao\Template;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
-use Haste\Util\Url;
 use Markocupic\ContaoTranslationBundle\Form\ProjectForm;
 use Markocupic\ContaoTranslationBundle\Message\Message;
 use Markocupic\ContaoTranslationBundle\Model\TransProjectModel;
+use Markocupic\ContaoTranslationBundle\Util\StrUtil;
+use Symfony\Component\Filesystem\Path;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CreateNewProjectController
 {
-    private Connection $connection;
-    private ProjectForm $projectForm;
-    private TranslatorInterface $translator;
-    private Message $message;
-    private array $allowedLocales;
-
-    public function __construct(Connection $connection, ProjectForm $projectForm, TranslatorInterface $translator, Message $message, array $allowedLocales)
-    {
-        $this->connection = $connection;
-        $this->projectForm = $projectForm;
-        $this->translator = $translator;
-        $this->message = $message;
-        $this->allowedLocales = $allowedLocales;
+    public function __construct(
+        private readonly Connection $connection,
+        private readonly Message $message,
+        private readonly ProjectForm $projectForm,
+        private readonly StrUtil $strUtil,
+        private readonly TranslatorInterface $translator,
+        private readonly UrlParser $urlParser,
+        private readonly string $projectDir,
+    ) {
     }
 
     public function generate(Template $template, ModuleModel $model, Request $request): string
@@ -62,25 +60,43 @@ class CreateNewProjectController
 
         $form = $this->projectForm->getForm($model);
 
-        if ($form->validate()) {
-            $name = $form->fetch('name');
+        $hasError = false;
 
-            if (
-                !$this->connection->fetchOne(
-                    'SELECT id FROM tl_trans_project WHERE name = ?',
-                    [$name],
-                )
-            ) {
-                $model->tstamp = time();
-                $model->save();
+        if ($form->validate()) {
+
+            $path = $model->languageFilesFolder;
+            $path = $this->strUtil->sanitizeFolderDirectoryName($path);
+            $path = Path::canonicalize($this->projectDir.'/'.$path);
+            $model->languageFilesFolder = Path::makeRelative($path, $this->projectDir);
+
+            // Check if path exists
+            if (empty($path) || !is_dir($path)) {
+                $hasError = true;
+                $widget = $form->getWidget('languageFilesFolder');
+                $widget->addError($this->translator->trans('CT_TRANS.invalidLanguageFilesFolder', [], 'contao_default'));
             }
 
-            $this->message->addConfirmation(
-                $this->translator->trans('CT_TRANS.confirmCreateProject', [$name], 'contao_default')
-            );
+            if (!$hasError) {
+                $projectName = $form->fetch('name');
 
-            $url = Url::removeQueryString($request->query->keys());
-            Controller::redirect($url);
+                if (
+                    !$this->connection->fetchOne(
+                        'SELECT id FROM tl_trans_project WHERE name = ?',
+                        [$projectName],
+                    )
+                ) {
+                    $model->tstamp = time();
+                    $model->save();
+                }
+
+                $this->message->addConfirmation(
+                    $this->translator->trans('CT_TRANS.confirmCreateProject', [$projectName], 'contao_default')
+                );
+
+                $url = $this->urlParser->removeQueryString($request->query->keys());
+
+                Controller::redirect($url);
+            }
         }
 
         return $form->generate();

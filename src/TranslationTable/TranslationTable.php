@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -17,15 +17,13 @@ namespace Markocupic\ContaoTranslationBundle\TranslationTable;
 use Markocupic\ContaoTranslationBundle\Model\TransProjectModel;
 use Markocupic\ContaoTranslationBundle\Model\TransResourceModel;
 use Markocupic\ContaoTranslationBundle\Model\TransTranslationModel;
-use Markocupic\ContaoTranslationBundle\String\XmlSanitizer;
+use Markocupic\ContaoTranslationBundle\Util\XmlSanitizer;
 
 class TranslationTable
 {
-    private XmlSanitizer $xmlSanitizer;
-
-    public function __construct(XmlSanitizer $xmlSanitizer)
-    {
-        $this->xmlSanitizer = $xmlSanitizer;
+    public function __construct(
+        private readonly XmlSanitizer $xmlSanitizer,
+    ) {
     }
 
     public function getRows(TransProjectModel $project, TransResourceModel $resource, string $language): array

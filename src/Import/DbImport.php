@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -18,26 +18,21 @@ use Doctrine\DBAL\Connection;
 use Markocupic\ContaoTranslationBundle\Message\Message;
 use Markocupic\ContaoTranslationBundle\Model\TransProjectModel;
 use Markocupic\ContaoTranslationBundle\Model\TransResourceModel;
-use Markocupic\ContaoTranslationBundle\String\XmlSanitizer;
+use Markocupic\ContaoTranslationBundle\Util\XmlSanitizer;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DbImport
 {
-    private ParseXml $parseXml;
-    private Connection $connection;
-    private XmlSanitizer $xmlSanitizer;
-    private Message $message;
-    private TranslatorInterface $translator;
     private array $sourceLangFiles = [];
     private array $targetLangFiles = [];
 
-    public function __construct(ParseXml $parseXml, Connection $connection, XmlSanitizer $xmlSanitizer, Message $message, TranslatorInterface $translator)
-    {
-        $this->parseXml = $parseXml;
-        $this->connection = $connection;
-        $this->xmlSanitizer = $xmlSanitizer;
-        $this->message = $message;
-        $this->translator = $translator;
+    public function __construct(
+        private readonly Connection $connection,
+        private readonly Message $message,
+        private readonly ParseXml $parseXml,
+        private readonly TranslatorInterface $translator,
+        private readonly XmlSanitizer $xmlSanitizer,
+    ) {
     }
 
     public function import(array $arrSourcePaths, TransProjectModel $project): void
@@ -144,7 +139,7 @@ class DbImport
         $project = $source->getRelated('pid');
 
         if (null === $project) {
-            throw new Exception(sprintf('Resource with ID %s has no corresponding parent project.', $source->id, ));
+            throw new \Exception(sprintf('Resource with ID %s has no corresponding parent project.', $source->id));
         }
 
         $stmt = $this->connection->executeQuery(

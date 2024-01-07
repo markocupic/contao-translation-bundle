@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.1">
+  <file datatype="php" original="vendor/markocupic/contao-translation-bundle/contao/languages/en/default.php" source-language="en">
+    <body>
+      <trans-unit id="CT_TRANS.addLocale">
+        <source>Add a new language</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.submitLbl">
+        <source>Submit</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.selectFiles">
+        <source>Select file</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.fileUploadSubmitLbl">
+        <source>XLF-File upload</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.edit">
+        <source>Edit</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.save">
+        <source>Save</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.delete">
+        <source>Delete</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.translate">
+        <source>Translate</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.projects">
+        <source>Projects</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.noTranslationFound">
+        <source>No translation found.</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.createNewProject">
+        <source>Create new project</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.sourceLanguage">
+        <source>Source language</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.downloadLangFiles">
+        <source>Download xlf-language files</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.exportLangFilesToPath">
+        <source>Export xlf-lang files to path</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.importLangFilesFromPath">
+        <source>Import xlf-lang files from path</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.deleteProject">
+        <source>Delete project</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.languageResources">
+        <source>Language resources</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.translated">
+        <source>translated</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.resources">
+        <source>Resources</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.languages">
+        <source>Languages</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.pathTolanguageFilesFolder">
+        <source>Path to translation files</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.languageFilesFolderPathNotDefined">
+        <source>Path to translation files not set!</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.confirmDeleteProject">
+        <source>Successfully deleted project "%s".</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.confirmCreateProject">
+        <source>Successfully created project "%s".</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.deleteOrphaned">
+        <source>Deleted "%s" because we couldn't find the key in a source language file. .</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.importResourceError">
+        <source>An error occured while trying to import a language resource.</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.confirmResourceImport">
+        <source>Successfully imported resource "%s".</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.confirmDeleteResource">
+        <source>Successfully deleted resource "%s".</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.confirmRepositoryExport">
+        <source>Successfully exported "%s/%s".</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.errorRepositoryExport">
+        <source>Error while trying to export resource "%s/%s".</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.errorRepositoryExportDueToEmptyFile">
+        <source>Skipped resource "%s/%s" due to empty file.</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.invalidLanguageFilesFolder">
+        <source>Language folder not found. Please add a valid directory path.</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

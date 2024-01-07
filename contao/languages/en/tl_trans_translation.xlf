@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.1">
+  <file datatype="php" original="vendor/markocupic/contao-translation-bundle/contao/languages/en/tl_trans_translation.php" source-language="en">
+    <body>
+      <trans-unit id="tl_trans_translation.default_legend">
+        <source>Basic settings</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_translation.language.0">
+        <source>Language</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_translation.language.1">
+        <source>Please select a language.</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_translation.translationId.0">
+        <source>Translation ID</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_translation.translationId.1">
+        <source>Please add the translation id.</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_translation.translation.0">
+        <source>Translation</source>
+      </trans-unit>
+      <trans-unit id="tl_trans_translation.translation.1">
+        <source>Please add the translation.</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

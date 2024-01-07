@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2022 <m.cupic@gmx.ch>
+ * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -24,13 +24,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TranslateController
 {
-    private ContaoCsrfTokenManager $contaoCsrfTokenManager;
-    private string $contaoCsrfTokenName;
-
-    public function __construct(ContaoCsrfTokenManager $contaoCsrfTokenManager, string $contaoCsrfTokenName)
-    {
-        $this->contaoCsrfTokenManager = $contaoCsrfTokenManager;
-        $this->contaoCsrfTokenName = $contaoCsrfTokenName;
+    public function __construct(
+        private readonly ContaoCsrfTokenManager $contaoCsrfTokenManager,
+        private readonly string $contaoCsrfTokenName,
+    ) {
     }
 
     public function generate(Template $template, ModuleModel $model, Request $request): string
