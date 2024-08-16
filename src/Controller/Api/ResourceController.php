@@ -41,17 +41,7 @@ class ResourceController
     ) {
     }
 
-    /**
-     * @Route("/trans_api/resource/delete/{resourceId}",
-     *     name="markocupic_contao_translation_api_delete_resource",
-     *     defaults={
-     *         "_scope" = "frontend",
-     *         "_token_check" = true
-     *     }
-     * )
-     *
-     * @throws \Exception
-     */
+    #[Route('/trans_api/resource/delete/{resourceId}', name: 'markocupic_contao_translation_api_delete_resource', defaults: ['_scope' => 'frontend', '_token_check' => true])]
     public function delete(int $resourceId): JsonResponse
     {
         // Throws an exception if client is not authorized
@@ -82,17 +72,7 @@ class ResourceController
         return new JsonResponse($json);
     }
 
-    /**
-     * @Route("/trans_api/resource/import_resources_from_path/{projectId}",
-     *     name="markocupic_contao_translation_api_import_resources_from_path",
-     *     defaults={
-     *         "_scope" = "frontend",
-     *         "_token_check" = true
-     *     }
-     * )
-     *
-     * @throws \Exception
-     */
+    #[Route('/trans_api/resource/import_resources_from_path/{projectId}', name: 'markocupic_contao_translation_api_import_resources_from_path', defaults: ['_scope' => 'frontend', '_token_check' => true])]
     public function importLangFilesFromPath(int $projectId): JsonResponse
     {
         // Throws an exception if client is not authorized

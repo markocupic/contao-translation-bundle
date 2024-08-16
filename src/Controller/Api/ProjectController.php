@@ -38,17 +38,7 @@ class ProjectController
     ) {
     }
 
-    /**
-     * @Route("/trans_api/project/delete/{projectId}",
-     *     name="markocupic_contao_translation_api_delete_project",
-     *     defaults={
-     *         "_scope" = "frontend",
-     *         "_token_check" = true
-     *     }
-     * )
-     *
-     * @throws \Exception
-     */
+    #[Route('/trans_api/project/delete/{projectId}', name: 'markocupic_contao_translation_api_delete_project', defaults: ['_scope' => 'frontend', '_token_check' => true])]
     public function delete(int $projectId): JsonResponse
     {
         // Throws an exception if client is not authorized

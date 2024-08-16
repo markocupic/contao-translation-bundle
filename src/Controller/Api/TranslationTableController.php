@@ -33,17 +33,7 @@ class TranslationTableController
     ) {
     }
 
-    /**
-     * @Route("/trans_api/translation_table/get_rows/{resourceId}/{language}",
-     *     name="markocupic_contao_translation_api_get_rows",
-     *     defaults={
-     *         "_scope" = "frontend",
-     *         "_token_check" = true
-     *     }
-     * )
-     *
-     * @throws \Exception
-     */
+    #[Route('/trans_api/translation_table/get_rows/{resourceId}/{language}', name: 'markocupic_contao_translation_api_get_rows', defaults: ['_scope' => 'frontend', '_token_check' => true])]
     public function getRows(int $resourceId, string $language): JsonResponse
     {
         // Throws an exception if client is not authorized
@@ -79,17 +69,7 @@ class TranslationTableController
         return new JsonResponse($json);
     }
 
-    /**
-     * @Route("/trans_api/translation_table/get_target_source_value/{resourceId}/{language}",
-     *     name="markocupic_contao_translation_api_get_target_source_value",
-     *     defaults={
-     *         "_scope" = "frontend",
-     *         "_token_check" = true
-     *     }
-     * )
-     *
-     * @throws \Exception
-     */
+    #[Route('/trans_api/translation_table/get_target_source_value/{resourceId}/{language}', name: 'markocupic_contao_translation_api_get_target_source_value', defaults: ['_scope' => 'frontend', '_token_check' => true])]
     public function getTargetSourceValue(int $resourceId, string $language): JsonResponse
     {
         // Throws an exception if client is not authorized
@@ -127,17 +107,7 @@ class TranslationTableController
         return new JsonResponse($json);
     }
 
-    /**
-     * @Route("/trans_api/translation_table/update_row/{resourceId}/{language}",
-     *     name="markocupic_contao_translation_api_update_row",
-     *     defaults={
-     *         "_scope" = "frontend",
-     *         "_token_check" = true
-     *     }
-     * )
-     *
-     * @throws \Exception
-     */
+    #[Route('/trans_api/translation_table/update_row/{resourceId}/{language}', name: 'markocupic_contao_translation_api_update_row', defaults: ['_scope' => 'frontend', '_token_check' => true])]
     public function updateRow(int $resourceId, string $language): JsonResponse
     {
         // Throws an exception if client is not authorized
