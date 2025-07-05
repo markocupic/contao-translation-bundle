@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
+ * (c) Marko Cupic <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -39,7 +39,7 @@ class MenuController
         $partial = new FrontendTemplate('menu_partial');
 
         $stmt = $this->connection->executeQuery(
-            'SELECT * FROM tl_trans_project'
+            'SELECT * FROM tl_trans_project',
         );
 
         $factory = new MenuFactory();
@@ -58,12 +58,18 @@ class MenuController
             ]);
 
             if ((int) $request->query->get('project') === (int) $row['id']) {
-                $level1->addChild($this->translator->trans('CT_TRANS.languages', [], 'contao_default'), [
-                    'uri' => $this->urlParser->addQueryString('act=language&project='.$row['id'], $url),
-                ]);
-                $level1->addChild($this->translator->trans('CT_TRANS.resources', [], 'contao_default'), [
-                    'uri' => $this->urlParser->addQueryString('act=resource&project='.$row['id'], $url),
-                ]);
+                $level1->addChild(
+                    $this->translator->trans('CT_TRANS.languages', [], 'contao_default'),
+                    [
+                        'uri' => $this->urlParser->addQueryString('act=language&project='.$row['id'], $url),
+                    ],
+                );
+                $level1->addChild(
+                    $this->translator->trans('CT_TRANS.resources', [], 'contao_default'),
+                    [
+                        'uri' => $this->urlParser->addQueryString('act=resource&project='.$row['id'], $url),
+                    ],
+                );
             }
         }
 

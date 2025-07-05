@@ -98,6 +98,15 @@
       <trans-unit id="CT_TRANS.invalidLanguageFilesFolder">
         <source>Language folder not found. Please add a valid directory path.</source>
       </trans-unit>
+      <trans-unit id="CT_TRANS.translationIdAlreadyExists">
+        <source>Translation-ID "%s" already exists. Please enter another translation-ID.</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.translationIdCannotBeEmpty">
+        <source>The translation-ID cannot be empty.</source>
+      </trans-unit>
+      <trans-unit id="CT_TRANS.translationStringCannotBeEmpty">
+        <source>The translation string cannot be empty.</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

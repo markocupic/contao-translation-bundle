@@ -17,14 +17,21 @@ namespace Markocupic\ContaoTranslationBundle\Export;
 class XliffWriter
 {
     protected const XLIFF_VERSION = '1.1';
+
     protected const FILE_DATATYPE = 'php';
 
     protected string $sourceLanguage;
+
     protected string $targetLanguage;
+
     protected string $originalFilePath;
+
     protected string $targetFilePath;
+
     protected array $arrTranslations;
+
     private array $arrSourceLangTranslations;
+
     private array $arrTargetLangTranslations;
 
     public function __construct(string $sourceLanguage, string $targetLanguage, string $originalFilePath, string $targetFilePath, array $arrSourceLangTranslations, array $arrTargetLangTranslations)
@@ -125,9 +132,9 @@ class XliffWriter
     /**
      * Create a new trans-unit node.
      *
-     * @throws \DOMException
-     *
      * @return \DOMElement|false
+     *
+     * @throws \DOMException
      */
     protected function createTranslationNode(\DOMDocument $dom, string $translationId, string $valueSource, string|null $valueTarget)
     {
@@ -169,7 +176,7 @@ class XliffWriter
     {
         $hasNotAllowedChars = false;
 
-        if (false !== strpos($strString, '<') || false !== strpos($strString, '>')) {
+        if (str_contains($strString, '<') || str_contains($strString, '>')) {
             $hasNotAllowedChars = true;
         }
 

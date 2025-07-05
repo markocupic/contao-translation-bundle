@@ -37,7 +37,9 @@ use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 class TranslationModuleController extends AbstractFrontendModuleController
 {
     public const TYPE = 'translation_module';
+
     protected PageModel|null $page = null;
+
     private string|null $authToken = null;
 
     public function __construct(
@@ -54,10 +56,9 @@ class TranslationModuleController extends AbstractFrontendModuleController
     }
 
     /**
-     * This method extends the parent __invoke method,
-     * its usage is usually not necessary.
+     * This method extends the parent __invoke method, its usage is usually not necessary.
      */
-    public function __invoke(Request $request, ModuleModel $model, string $section, array $classes = null, PageModel $page = null): Response
+    public function __invoke(Request $request, ModuleModel $model, string $section, array|null $classes = null, PageModel|null $page = null): Response
     {
         // Get the page model
         $this->page = $page;

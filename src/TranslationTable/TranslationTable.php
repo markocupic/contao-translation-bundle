@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
+ * (c) Marko Cupic <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -55,7 +55,7 @@ class TranslationTable
                 $strTranslation = $arrTranslations[$source['translationId']]['translation'];
             }
 
-            $rows[(int) $source['id']] = [
+            $rows[] = [
                 'source' => [
                     'id' => $source['id'],
                     'resource' => $resource->id,
@@ -88,7 +88,7 @@ class TranslationTable
 
         $translation = TransTranslationModel::findOneBy(
             ['pid = ?', 'translationId = ?', 'language = ?'],
-            [$resource->id, $source->translationId, $language]
+            [$resource->id, $source->translationId, $language],
         );
 
         if (null === $translation) {
@@ -111,7 +111,7 @@ class TranslationTable
 
         $translation = TransTranslationModel::findOneBy(
             ['pid = ?', 'translationId = ?', 'language = ?'],
-            [$resource->id, $source->translationId, $language]
+            [$resource->id, $source->translationId, $language],
         );
 
         if (null === $translation) {

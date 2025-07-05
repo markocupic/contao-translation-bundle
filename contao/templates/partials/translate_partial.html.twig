@@ -1,35 +1,92 @@
+<script src="{{ asset('vue/dist/vue.global.prod.js', 'markocupic_contao_translation') }}"></script>
+<script src="{{ asset('swapy/dist/swapy.min.js', 'markocupic_contao_translation') }}"></script>
+<script src="{{ asset('js/translation_table.js', 'markocupic_contao_translation') }}"></script>
+
 <div id="translationTableApp" class="trans-translate">
     <div v-cloak ref="app" data-project="{{ project.id }}" data-resource="{{ resource.id }}" data-language="{{ language }}" data-csrf-token="{{ csrf_token }}">
         <h3 class="headline">{{ project.name }} - {{ language }} - {{ resource.name }}</h3>
 
         <div class="go-back-btn"><a href="javascript: history.back()">{{ 'MSC.backBT'|trans({}, 'contao_default') }}</a></div>
-
-        <div v-if="rows" v-for="(row, index) in rows" v-bind:class="itemsOpened[index] && itemsOpened[index] == true ? 'open' : ''" v-bind:data-index="index" v-bind:data-source-id="row.source.id" v-bind:data-translation-id="row.target.translation_id" class="translation-item row">
-            <div class="translation-source col-12 mb-3">
-                <div>
-                    <code class="small" v-html="row.source.translation_id"></code>
-                </div>
-                <div>
-                    <span class="small font-italic text-muted" html="row.source.translation">${ row.source.translation }</span>
-                </div>
-            </div>
-            <div class="translation-target col-12">
-                <div v-if="!itemsOpened[index]" class="d-flex">
-                    <div><button @click="edit(index)" class="btn btn-sm btn-primary">{{ 'CT_TRANS.edit'|trans({}, 'contao_default') }}</button></div>
-                    <div class="ms-3 ps-2 pe-2 flex-grow-1" v-bind:class="row.target.translation == '' ? 'trans-translation-missing' : 'trans-translation-ok'"><span class="small">${ row.target.translation }</span></div>
-                </div>
-                <div v-if="itemsOpened[index]" class="d-flex">
-                    <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                            <button @click="save(index)" class="btn btn-sm btn-danger" type="button">{{ 'CT_TRANS.save'|trans({}, 'contao_default') }}</button>
+        <ul class="swapy-container list-unstyled" ref="container">
+            <li
+                v-if="rows"
+                v-for="row in rows"
+                :class="itemsOpened[row.source.id] && itemsOpened[row.source.id] == true ? 'open' : ''"
+                :data-source-id="row.source.id"
+                :data-translation-id="row.target.translation_id"
+                :data-swapy-slot="row.source.id"
+                class="translation-item"
+            >
+                <div :data-swapy-item="row.source.id">
+                    <div class="translation-source col-10 mb-3">
+                        <div class="d-block">
+                            <code class="small" v-html="row.source.translation_id"></code>
                         </div>
-                        <input type="text" name="translation" class="ms-3 form-control" placeholder="{{ 'CT_TRANS.noTranslationFound'|trans({}, 'contao_default') }}">
+                        <div class="my-2 d-block">
+                            <span class="small font-italic text-muted" html="row.source.translation">${ row.source.translation }</span>
+                        </div>
+                        <div class="d-flex">
+                            <div class="translation-target flex-grow-1">
+                                <div v-if="!itemsOpened[row.source.id]" class="d-flex">
+                                    <div class="p-2 flex-grow-1" v-bind:class="row.target.translation == '' ? 'trans-translation-missing' : 'trans-translation-ok'">
+                                        <span class="small">${ row.target.translation }</span>
+                                    </div>
+                                </div>
+                                <div v-if="itemsOpened[row.source.id]" class="d-flex">
+                                    <input type="text" name="translation" class="form-control" placeholder="{{ 'CT_TRANS.noTranslationFound'|trans({}, 'contao_default') }}">
+
+                                </div>
+                            </div>
+                            <div class="operations-container">
+                                <div class="d-flex">
+                                    <button v-if="!itemsOpened[row.source.id]" class="ms-3 btn btn-sm btn-primary" @click="edit(row.source.id)" type="button" title="{{ 'CT_TRANS.edit'|trans({}, 'contao_default') }}">
+                                        <img src="/bundles/markocupiccontaotranslation/icons/edit.svg" alt="Edit">
+                                    </button>
+                                    <button v-if="itemsOpened[row.source.id]" class="ms-3 btn btn-sm btn-primary" @click="save(row.source.id)" type="button" title="{{ 'CT_TRANS.save'|trans({}, 'contao_default') }}">
+                                        <img src="/bundles/markocupiccontaotranslation/icons/save.svg" alt="Edit">
+                                    </button>
+                                    <button class="ms-3 btn btn-sm btn-danger" @click="openModal(row.source.id,row.source.translation_id,row.source.language)" type="button" title="Add new after">
+                                        <img src="/bundles/markocupiccontaotranslation/icons/plus.svg" alt="Add new after">
+                                    </button>
+                                    <button class="ms-3 btn btn-sm btn-success" type="button" title="sort" data-swapy-handle>
+                                        <img src="/bundles/markocupiccontaotranslation/icons/up-down.svg" alt="change order">
+                                    </button>
+                                    <button class="ms-3 btn btn-sm btn-danger" @click="deleteRow(row.source.id)" type="button" title="delete row">
+                                        <img src="/bundles/markocupiccontaotranslation/icons/trash.svg" alt="change order">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </li>
+        </ul>
+        <div id="addNewModal" class="modal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add new translation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="addNewTranslationForm" @submit="insertNew($event)" action="" method="post">
+                        <div class="modal-body">
+                            <input type="hidden" name="REQUEST_TOKEN" value="{{ csrf_token }}">
+                            <input type="hidden" id="sourceId" name="sourceId" value="">
+                            <label for="language" class="mt-4 form-label">Language</label>
+                            <input id="language" class="form-control" name="language" type="text" value="{{ language }}" readonly>
+                            <label for="translationId" class="mt-4 form-label">Add the translation-ID</label>
+                            <input id="translationId" class="form-control" name="translationId" type="text" value="">
+                            <label for="translationString" class="mt-4 form-label">Add the <strong>source</strong> translation string</label>
+                            <input id="translationString" class="form-control" name="translationString" type="text" value="">
+                            <div id="modalErrorBox" class="mt-3 text-danger"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script src="/bundles/markocupiccontaotranslation/js/vue@3.2.47_global.prod.min.js"></script>
-<script src="/bundles/markocupiccontaotranslation/js/translation_table.js"></script>

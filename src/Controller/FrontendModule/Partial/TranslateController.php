@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
+ * (c) Marko Cupic <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -36,11 +36,11 @@ class TranslateController
             return '';
         }
 
-        if (null === ($project = TransProjectModel::findByPk($request->query->get('project')))) {
+        if (null === ($project = TransProjectModel::findById($request->query->get('project')))) {
             return '';
         }
 
-        if (null === ($resource = TransResourceModel::findByPk($request->query->get('resource')))) {
+        if (null === ($resource = TransResourceModel::findById($request->query->get('resource')))) {
             return '';
         }
 

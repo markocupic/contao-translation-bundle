@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
+ * (c) Marko Cupic <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -43,12 +43,12 @@ class ResourceController
 
     public function generate(Template $template, ModuleModel $model, Request $request): string
     {
-        if ('export' === $request->query->get('do') && null !== ($project = TransProjectModel::findByPk($request->query->get('project')))) {
+        if ('export' === $request->query->get('do') && null !== ($project = TransProjectModel::findById($request->query->get('project')))) {
             $repoImport = $request->query->has('repo_import');
             $this->exportFromDb->export($project, $repoImport);
         }
 
-        if (null === ($project = TransProjectModel::findByPk($request->query->get('project'))) || !$request->query->has('act')) {
+        if (null === ($project = TransProjectModel::findById($request->query->get('project'))) || !$request->query->has('act')) {
             $url = $this->urlParser->removeQueryString($request->query->keys());
             Controller::redirect($url);
         }
@@ -61,7 +61,7 @@ class ResourceController
 
         $stmt = $this->connection->executeQuery(
             'SELECT * FROM tl_trans_resource WHERE pid = ?',
-            [$project->id]
+            [$project->id],
         );
 
         while (false !== ($row = $stmt->fetchAssociative())) {
@@ -96,7 +96,7 @@ class ResourceController
                 $menu
                     ->addChild(
                         $this->translator->trans('CT_TRANS.importLangFilesFromPath', [$project->languageFilesFolder], 'contao_default'),
-                        ['uri' => $href]
+                        ['uri' => $href],
                     )
                     ->setAttribute('data-ajax-href', $href)
                 ;

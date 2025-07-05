@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
+ * (c) Marko Cupic <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -34,7 +34,7 @@ class ProjectForm
         $form = new Form(
             'createNewProject',
             'POST',
-            static fn ($objHaste) => $request->request->get('FORM_SUBMIT') === $objHaste->getFormId()
+            static fn ($objHaste) => $request->request->get('FORM_SUBMIT') === $objHaste->getFormId(),
         );
 
         $form->setBoundModel($model);
@@ -49,15 +49,14 @@ class ProjectForm
 
                 // Select fields
                 if ('name' === $strField || 'sourceLanguage' === $strField || 'languageFilesFolder' === $strField) {
-                    // Customize form fields
-                    //$arrDca['eval']['mandatory'] = true;
+                    // Customize form fields arrDca['eval']['mandatory'] = true;
 
                     return true;
                 }
 
                 // you must return true otherwise the field will be skipped
                 return false;
-            }
+            },
         );
 
         $form->addFormField('submit', [

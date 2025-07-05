@@ -15,29 +15,36 @@ declare(strict_types=1);
 namespace Markocupic\ContaoTranslationBundle\Import;
 
 use Safe\Exceptions\FilesystemException;
+
 use function Safe\file_get_contents;
 
 class ParseXml
 {
     private string|null $name = null;
+
     private string|null $dataType = null;
+
     private string|null $original = null;
+
     private string|null $sourceLanguage = null;
+
     private string|null $targetLanguage = null;
+
     private array $translations = [];
+
     private bool $isSourceFile = false;
 
     /**
-     * @throws FilesystemException
-     *
      * @return $this
+     *
+     * @throws FilesystemException
      */
     public function parse(string $path): self
     {
         $this->reset();
 
         if (!is_file($path)) {
-            throw new \Exception(sprintf('File "%s" not found.', $path));
+            throw new \Exception(\sprintf('File "%s" not found.', $path));
         }
         $xml = simplexml_load_string(file_get_contents($path));
 

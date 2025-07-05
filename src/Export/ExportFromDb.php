@@ -35,6 +35,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ExportFromDb
 {
     private array $resources = [];
+
     private array $languages = [];
 
     public function __construct(
@@ -51,7 +52,7 @@ class ExportFromDb
      * @throws Exception
      * @throws \Doctrine\DBAL\Exception
      */
-    public function export(TransProjectModel $project, bool $repoImport = false, TransResourceModel $resource = null, array $arrLanguage = null): void
+    public function export(TransProjectModel $project, bool $repoImport = false, TransResourceModel|null $resource = null, array|null $arrLanguage = null): void
     {
         $error = 0;
         $countFilesCreated = 0;
@@ -105,7 +106,7 @@ class ExportFromDb
 
                 if (empty($arrTargetTranslations)) {
                     $this->message->addError(
-                        $this->translator->trans('CT_TRANS.errorRepositoryExportDueToEmptyFile', [$language, $resource->name], 'contao_default')
+                        $this->translator->trans('CT_TRANS.errorRepositoryExportDueToEmptyFile', [$language, $resource->name], 'contao_default'),
                     );
                     continue;
                 }
@@ -116,20 +117,20 @@ class ExportFromDb
                     $resource->original,
                     $targetPath.'/'.$resource->name,
                     $arrSourceTranslations,
-                    $arrTargetTranslations
+                    $arrTargetTranslations,
                 );
 
                 if (!$writer->export()) {
                     ++$error;
 
                     $this->message->addError(
-                        $this->translator->trans('CT_TRANS.errorRepositoryExport', [$language, $resource->name], 'contao_default')
+                        $this->translator->trans('CT_TRANS.errorRepositoryExport', [$language, $resource->name], 'contao_default'),
                     );
                 } else {
                     ++$countFilesCreated;
 
                     $this->message->addConfirmation(
-                        $this->translator->trans('CT_TRANS.confirmRepositoryExport', [$language, $resource->name], 'contao_default')
+                        $this->translator->trans('CT_TRANS.confirmRepositoryExport', [$language, $resource->name], 'contao_default'),
                     );
                 }
             }
@@ -163,7 +164,7 @@ class ExportFromDb
         $response->setContentDisposition(
             $inline ? ResponseHeaderBag::DISPOSITION_INLINE : ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             $filename,
-            (new UnicodeString(basename($filePath)))->ascii()->toString()
+            (new UnicodeString(basename($filePath)))->ascii()->toString(),
         );
         $mimeTypes = new MimeTypes();
         $mimeType = $mimeTypes->guessMimeType($filePath);

@@ -1,40 +1,29 @@
-
 <div class="trans-resource">
-
     <h3 class="headline">{{ project.name }} - {{ 'CT_TRANS.languageResources'|trans({}, 'contao_default') }}</h3>
-
     <div class="go-back-btn"><a href="javascript: history.back()">{{ 'MSC.backBT'|trans({}, 'contao_default') }}</a></div>
-
     {{ upload|raw }}
-
     <hr>
     {{ 'CT_TRANS.pathTolanguageFilesFolder'|trans({}, 'contao_default') }}:<br><code class="small">{% if project.languageFilesFolder %}{{ project.languageFilesFolder }}{% else %}{{ 'CT_TRANS.languageFilesFolderPathNotDefined'|trans({}, 'contao_default') }}{% endif %}</code>
     <hr>
-
     {% if import_resources_from_path_menu %}
         {{ import_resources_from_path_menu|raw }}
     {% endif %}
-
     <hr>
-
     <h3 class="headline">{{ 'CT_TRANS.resources'|trans({}, 'contao_default') }}</h3>
-
     <div class="accordion mt-4" id="transResources">
         {% for resource in resources %}
-        <div class="accordion-item">
-            <h3 class="headline accordion-header mb-0" id="transResource{{ resource.id }}">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseResource{{ resource.id }}" aria-expanded="false" aria-controls="collapseResource{{ resource.id }}">
-                    {{ resource.name }}
-                </button>
-            </h3>
-            <div id="collapseResource{{ resource.id }}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#transResources">
-                <div class="accordion-body">
-                    {{ resource.menu|raw }}
+            <div class="accordion-item">
+                <h3 class="headline accordion-header mb-0" id="transResource{{ resource.id }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseResource{{ resource.id }}" aria-expanded="false" aria-controls="collapseResource{{ resource.id }}">
+                        {{ resource.name }}
+                    </button>
+                </h3>
+                <div id="collapseResource{{ resource.id }}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#transResources">
+                    <div class="accordion-body">
+                        {{ resource.menu|raw }}
+                    </div>
                 </div>
             </div>
-        </div>
         {% endfor %}
-
     </div>
-
 </div>

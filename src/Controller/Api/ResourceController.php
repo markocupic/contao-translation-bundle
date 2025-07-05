@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
+ * (c) Marko Cupic <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -49,7 +49,7 @@ class ResourceController
 
         $this->contaoFramework->initialize(true);
 
-        if (null === ($project = TransResourceModel::findByPk($resourceId))) {
+        if (null === ($project = TransResourceModel::findById($resourceId))) {
             $json = [
                 'status' => 'error',
                 'message' => 'Resource not found.',
@@ -62,7 +62,7 @@ class ResourceController
         $this->connection->delete('tl_trans_resource', ['id' => $resourceId]);
 
         $this->message->addConfirmation(
-            $this->translator->trans('CT_TRANS.confirmDeleteResource', [$project->name], 'contao_default')
+            $this->translator->trans('CT_TRANS.confirmDeleteResource', [$project->name], 'contao_default'),
         );
 
         $json = [
@@ -80,7 +80,7 @@ class ResourceController
 
         $this->contaoFramework->initialize(true);
 
-        if (null === ($project = TransProjectModel::findByPk($projectId))) {
+        if (null === ($project = TransProjectModel::findById($projectId))) {
             $json = [
                 'status' => 'error',
                 'message' => 'Project not found.',

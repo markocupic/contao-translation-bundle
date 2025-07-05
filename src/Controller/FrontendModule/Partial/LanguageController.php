@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
+ * (c) Marko Cupic <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -42,7 +42,7 @@ class LanguageController
 
     public function generate(Template $template, ModuleModel $model, Request $request): string
     {
-        if (null === ($project = TransProjectModel::findByPk($request->query->get('project'))) || !$request->query->has('act')) {
+        if (null === ($project = TransProjectModel::findById($request->query->get('project'))) || !$request->query->has('act')) {
             return '';
         }
 
@@ -53,7 +53,7 @@ class LanguageController
 
         $stmt = $this->connection->executeQuery(
             'SELECT * FROM tl_trans_language WHERE pid = ?',
-            [$project->id]
+            [$project->id],
         );
 
         $rows = [];
@@ -79,13 +79,13 @@ class LanguageController
                         $resources->name.' '.$this->getPercentageTranslated($resources->current(), $row['language']),
                         [
                             'uri' => $this->urlParser->addQueryString(
-                                sprintf(
+                                \sprintf(
                                     'act=translate&language=%s&resource=%s',
                                     $row['language'],
                                     $resources->id,
-                                )
+                                ),
                             ),
-                        ]
+                        ],
                     );
                 }
             }
@@ -107,7 +107,7 @@ class LanguageController
         $form = new Form(
             'addLanguageForm',
             'POST',
-            static fn ($objHaste) => $request->request->get('FORM_SUBMIT') === $objHaste->getFormId()
+            static fn ($objHaste) => $request->request->get('FORM_SUBMIT') === $objHaste->getFormId(),
         );
 
         $form->addFormField('locales', [
@@ -156,7 +156,7 @@ class LanguageController
             $translated = (string) ceil(100 - ($untranslated / $total * 100));
         }
 
-        return sprintf(
+        return \sprintf(
             '(%s: %s %%)',
             $this->translator->trans('CT_TRANS.translated', [], 'contao_default'),
             $translated,

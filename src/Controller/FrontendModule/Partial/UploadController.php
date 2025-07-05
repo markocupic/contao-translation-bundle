@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
+ * (c) Marko Cupic <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -26,6 +26,7 @@ use Ramsey\Uuid\Uuid;
 use Safe\Exceptions\FilesystemException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
 use function Safe\mkdir;
 
 class UploadController
@@ -40,7 +41,7 @@ class UploadController
 
     public function generate(Template $template, ModuleModel $model, Request $request): string
     {
-        if (null === ($project = TransProjectModel::findByPk($request->query->get('project')))) {
+        if (null === ($project = TransProjectModel::findById($request->query->get('project')))) {
             return '';
         }
 
@@ -62,7 +63,7 @@ class UploadController
         $form = new Form(
             'transUpload',
             'POST',
-            static fn ($objHaste) => $request->request->get('FORM_SUBMIT') === $objHaste->getFormId()
+            static fn ($objHaste) => $request->request->get('FORM_SUBMIT') === $objHaste->getFormId(),
         );
 
         $form->addFormField('file', [
@@ -80,8 +81,7 @@ class UploadController
             'ignoreModelValue' => true,
         ]);
 
-        // Custom template has to be set
-        // after the last widget has been added to the form.
+        // Custom template has to be set after the last widget has been added to the form.
         $form
             ->getWidget('file')
             ->template = 'form_upload_trans_multifile'

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
+ * (c) Marko Cupic <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -24,6 +24,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DbImport
 {
     private array $sourceLangFiles = [];
+
     private array $targetLangFiles = [];
 
     public function __construct(
@@ -84,16 +85,13 @@ class DbImport
                     $source->save();
 
                     $this->message->addConfirmation(
-                        $this->translator->trans('CT_TRANS.confirmResourceImport', [$source->name], 'contao_default')
+                        $this->translator->trans('CT_TRANS.confirmResourceImport', [$source->name], 'contao_default'),
                     );
 
-                    $this->connection->delete(
-                        'tl_trans_translation',
-                        [
-                            'pid' => $source->id,
-                            'language' => $xliff->getTargetLanguage() ?: $xliff->getSourceLanguage(),
-                        ],
-                    );
+                    $this->connection->delete('tl_trans_translation', [
+                        'pid' => $source->id,
+                        'language' => $xliff->getTargetLanguage() ?: $xliff->getSourceLanguage(),
+                    ]);
 
                     $sorting = 0;
 
@@ -121,7 +119,7 @@ class DbImport
                     $this->deleteWithoutSource($source);
                 } else {
                     $this->message->addError(
-                        $this->translator->trans('CT_TRANS.importResourceError', [], 'contao_default')
+                        $this->translator->trans('CT_TRANS.importResourceError', [], 'contao_default'),
                     );
                 }
             }
@@ -139,12 +137,12 @@ class DbImport
         $project = $source->getRelated('pid');
 
         if (null === $project) {
-            throw new \Exception(sprintf('Resource with ID %s has no corresponding parent project.', $source->id));
+            throw new \Exception(\sprintf('Resource with ID %s has no corresponding parent project.', $source->id));
         }
 
         $stmt = $this->connection->executeQuery(
             'SELECT * FROM tl_trans_translation WHERE pid = ? AND language != ?',
-            [$source->id, $project->sourceLanguage]
+            [$source->id, $project->sourceLanguage],
         );
 
         while (false !== ($row = $stmt->fetchAssociative())) {
@@ -156,11 +154,11 @@ class DbImport
             ) {
                 $this->connection->delete(
                     'tl_trans_translation',
-                    ['id' => $row['id']]
+                    ['id' => $row['id']],
                 );
 
                 $this->message->addInfo(
-                    $this->translator->trans('CT_TRANS.deleteOrphaned', [$row['translationId']], 'contao_default')
+                    $this->translator->trans('CT_TRANS.deleteOrphaned', [$row['translationId']], 'contao_default'),
                 );
             }
         }

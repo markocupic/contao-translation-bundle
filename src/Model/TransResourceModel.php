@@ -29,6 +29,6 @@ class TransResourceModel extends Model
             ->execute($name, $project->id)
         ;
 
-        return !$objDb->numRows ? null : static::findByPk($objDb->id);
+        return !$objDb->numRows ? null : static::findById($objDb->id);
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
+ * (c) Marko Cupic <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -17,8 +17,7 @@ namespace Markocupic\ContaoTranslationBundle\Util;
 class XmlSanitizer
 {
     /**
-     * Trim, replace &quot; with "
-     * Encode not allowed & and <.
+     * Trim, replace &quot; with " Encode not allowed & and <.
      */
     public function sanitize(string $strString): string
     {

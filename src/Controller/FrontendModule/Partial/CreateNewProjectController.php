@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Contao Translation Bundle.
  *
- * (c) Marko Cupic 2024 <m.cupic@gmx.ch>
+ * (c) Marko Cupic <m.cupic@gmx.ch>
  * @license MIT
  * For the full copyright and license information,
  * please view the LICENSE file that was distributed with this source code.
@@ -63,7 +63,6 @@ class CreateNewProjectController
         $hasError = false;
 
         if ($form->validate()) {
-
             $path = $model->languageFilesFolder;
             $path = $this->strUtil->sanitizeFolderDirectoryName($path);
             $path = Path::canonicalize($this->projectDir.'/'.$path);
@@ -90,7 +89,7 @@ class CreateNewProjectController
                 }
 
                 $this->message->addConfirmation(
-                    $this->translator->trans('CT_TRANS.confirmCreateProject', [$projectName], 'contao_default')
+                    $this->translator->trans('CT_TRANS.confirmCreateProject', [$projectName], 'contao_default'),
                 );
 
                 $url = $this->urlParser->removeQueryString($request->query->keys());

@@ -67,8 +67,16 @@ class TransTranslationModel extends Model
             ['tl_trans_translation.translation != ?', 'tl_trans_translation.language = ?', 'tl_trans_translation.pid = ?'],
             ['', $language, $resource->id],
             [
-                'order' => 'tl_trans_translation.sorting',
-            ]
+                'order' => 'tl_trans_translation.sorting ASC',
+            ],
+        );
+    }
+
+    public static function findOneByTranslationIdAndLanguage(string $translationId, string $language): self|null
+    {
+        return self::findOneBy(
+            ['tl_trans_translation.translationId = ?', 'tl_trans_translation.language = ?'],
+            [$translationId, $language],
         );
     }
 }
