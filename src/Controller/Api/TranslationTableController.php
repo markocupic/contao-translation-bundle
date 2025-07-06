@@ -199,7 +199,7 @@ class TranslationTableController
             throw new \Exception('No related translation not found.');
         }
 
-        if (null !== TransTranslationModel::findOneByTranslationIdAndLanguage($translationId, $language)) {
+        if (null !== TransTranslationModel::findOneByTranslationIdAndProjectId($translationId, $relatedTranslation->pid)) {
             $json = [
                 'status' => 'error',
                 'message' => $this->translator->trans('CT_TRANS.translationIdAlreadyExists', [$translationId], 'contao_default'),

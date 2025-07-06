@@ -33,7 +33,7 @@ class TransTranslationModel extends Model
     public static function countTranslatedByProjectAndLanguage(TransProjectModel $project, string $language): int
     {
         $objDb = Database::getInstance()
-            ->prepare('SELECT COUNT(id) as total FROM tl_trans_translation WHERE translation != ? AND language = ? AND pid IN (SELECT id FROM tl_trans_resource WHERE pid = ?)')
+            ->prepare('SELECT COUNT(t.id) AS total FROM tl_trans_translation t JOIN tl_trans_resource r ON t.pid = r.id WHERE t.translation != ? AND t.language = ? AND r.pid = ?')
             ->execute('', $language, $project->id)
         ;
 
@@ -72,11 +72,11 @@ class TransTranslationModel extends Model
         );
     }
 
-    public static function findOneByTranslationIdAndLanguage(string $translationId, string $language): self|null
+    public static function findOneByTranslationIdAndProjectId(string $translationId, int $resourceId): self|null
     {
         return self::findOneBy(
-            ['tl_trans_translation.translationId = ?', 'tl_trans_translation.language = ?'],
-            [$translationId, $language],
+            ['tl_trans_translation.translationId = ?', 'tl_trans_translation.pid = ?'],
+            [$translationId, $resourceId],
         );
     }
 }

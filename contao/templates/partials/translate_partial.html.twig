@@ -18,7 +18,7 @@
                 class="translation-item"
             >
                 <div :data-swapy-item="row.source.id">
-                    <div class="translation-source col-10 mb-3">
+                    <div class="translation-source mb-3">
                         <div class="d-block">
                             <code class="small" v-html="row.source.translation_id"></code>
                         </div>
@@ -27,14 +27,24 @@
                         </div>
                         <div class="d-flex">
                             <div class="translation-target flex-grow-1">
-                                <div v-if="!itemsOpened[row.source.id]" class="d-flex">
-                                    <div class="p-2 flex-grow-1" v-bind:class="row.target.translation == '' ? 'trans-translation-missing' : 'trans-translation-ok'">
+                                <div v-if="!itemsOpened[row.source.id]" class="d-block">
+                                    <div class="p-2 rounded-2" v-bind:class="row.target.translation == '' ? 'trans-translation-missing' : 'trans-translation-ok'">
                                         <span class="small">${ row.target.translation }</span>
                                     </div>
+                                    <div class="mt-2 d-flex">
+                                        {% for item in languageLinks %}
+                                            {% if item.language == language %}
+                                                <span class="badge text-bg-primary lh-1 me-2">{{ item.language }}</span>
+                                            {% else %}
+                                                <a href="{{ item.link }}" title="{{ item.language }}" class="me-2 lh-1"><span class="badge text-bg-dark lh-1">{{ item.language }}</span></a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                                <div v-if="itemsOpened[row.source.id]" class="d-flex">
-                                    <input type="text" name="translation" class="form-control" placeholder="{{ 'CT_TRANS.noTranslationFound'|trans({}, 'contao_default') }}">
-
+                                <div v-if="itemsOpened[row.source.id]" class="d-block">
+                                    <div>
+                                        <input type="text" name="translation" class="form-control bg-light" placeholder="{{ 'CT_TRANS.noTranslationFound'|trans({}, 'contao_default') }}">
+                                    </div>
                                 </div>
                             </div>
                             <div class="operations-container">
@@ -45,10 +55,10 @@
                                     <button v-if="itemsOpened[row.source.id]" class="ms-3 btn btn-sm btn-primary" @click="save(row.source.id)" type="button" title="{{ 'CT_TRANS.save'|trans({}, 'contao_default') }}">
                                         <img src="/bundles/markocupiccontaotranslation/icons/save.svg" alt="Edit">
                                     </button>
-                                    <button class="ms-3 btn btn-sm btn-danger" @click="openModal(row.source.id,row.source.translation_id,row.source.language)" type="button" title="Add new after">
+                                    <button class="ms-3 btn btn-sm btn-primary" @click="openModal(row.source.id,row.source.translation_id,row.source.language)" type="button" title="Add new after">
                                         <img src="/bundles/markocupiccontaotranslation/icons/plus.svg" alt="Add new after">
                                     </button>
-                                    <button class="ms-3 btn btn-sm btn-success" type="button" title="sort" data-swapy-handle>
+                                    <button class="ms-3 btn btn-sm btn-primary" type="button" title="sort" data-swapy-handle>
                                         <img src="/bundles/markocupiccontaotranslation/icons/up-down.svg" alt="change order">
                                     </button>
                                     <button class="ms-3 btn btn-sm btn-danger" @click="deleteRow(row.source.id)" type="button" title="delete row">

@@ -137,8 +137,6 @@ class TranslationTableApp {
                 },
 
                 async deleteRow(sourceId) {
-                    event.preventDefault();
-
                     const data = new FormData();
                     data.append('sourceId', sourceId);
                     data.append('REQUEST_TOKEN', this.csrfToken);
@@ -220,6 +218,7 @@ class TranslationTableApp {
                             this.$nextTick(() => {
                                 const input = row.querySelector('input[name="translation"]');
                                 input.value = json.value;
+                                input.focus();
                             });
                         }
                     });
