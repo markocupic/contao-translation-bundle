@@ -4,7 +4,7 @@
 
 Dieses Bundle für das Contao CMS bietet
 für Programmierer mit kleinem Budget die Möglichkeit **Übersetzungsdateien im XLF Format**
-in einer Contao Installation zu pflegen. Dabei macht es Sinn diese Erweiterung in Kombination mit
+in einer Contao Installation zu pflegen. Dabei macht es Sinn, diese Erweiterung in Kombination mit
 [markocupic/contao-php2xliff](https://github.com/markocupic/contao-php2xliff) zu verwenden.
 
 | importieren & exportieren                                | Sprachdateien bearbeiten                                 |
